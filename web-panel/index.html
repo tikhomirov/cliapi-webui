@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLI Proxy API — Management Panel</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">◈</div>
+          <div class="logo-text">
+            <span class="logo-title">CLI Proxy</span>
+            <span class="logo-subtitle">Management</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-view="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="#providers" class="nav-item" data-view="providers">
+          <span class="nav-icon">🔌</span>
+          <span class="nav-label">Providers</span>
+        </a>
+        <a href="#models" class="nav-item" data-view="models">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">Models</span>
+        </a>
+        <a href="#traffic" class="nav-item" data-view="traffic">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">Traffic</span>
+        </a>
+        <a href="#keys" class="nav-item" data-view="keys">
+          <span class="nav-icon">🔑</span>
+          <span class="nav-label">Keys & Auth</span>
+        </a>
+        <a href="#chat" class="nav-item" data-view="chat">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Chat</span>
+        </a>
+        <a href="#settings" class="nav-item" data-view="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </a>
+        <a href="#config" class="nav-item" data-view="config">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">Config</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="server-status" id="server-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Connecting...</span>
+        </div>
+        <div class="version" id="version">v2.0.0</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main" id="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+          <h1 class="page-title" id="page-title">Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost" id="global-search-btn" title="Search (Ctrl+K)">
+            <span>🔍</span>
+            <kbd>Ctrl+K</kbd>
+          </button>
+          <button class="btn btn-ghost" id="refresh-btn" title="Refresh (Ctrl+R)">
+            <span>🔄</span>
+          </button>
+          <button class="btn btn-primary" id="save-btn">
+            <span>💾</span>
+            <span>Save Config</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content" id="content">
+        <!-- Views rendered here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Search Modal -->
+  <div class="modal-overlay" id="search-modal" hidden>
+    <div class="modal modal-search">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="global-search-input" placeholder="Search providers, models, settings..." autocomplete="off">
+        <kbd class="search-shortcut">Esc</kbd>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Modal Container -->
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal" id="modal-root"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

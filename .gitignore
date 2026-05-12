@@ -1,0 +1,58 @@
+# ==============================
+# Build outputs / binaries
+# ==============================
+/cli-proxy-api
+/CLIProxyAPI
+/cli-proxy-api-local
+/test-server
+*.exe
+
+# ==============================
+# Local config / secrets (not committed)
+# ==============================
+.env
+config.yaml
+
+# ==============================
+# Runtime data
+# ==============================
+/auths/*
+!/auths/.gitkeep
+/logs/
+/bin/
+/conv/
+/temp/
+/refs/
+/static/
+
+# Storage backends (local)
+/pgstore/
+/gitstore/
+/objectstore/
+
+# ==============================
+# Web panel dev artifacts
+# ==============================
+/web-panel/node_modules/
+/web-panel/.vite/
+/web-panel/dist/
+
+# ==============================
+# IDE / tooling
+# ==============================
+.idea/
+.vscode/
+.worktrees/
+.codex/
+.claude/
+.gemini/
+.serena/
+.agent/
+.agents/
+.opencode/
+
+# ==============================
+# OS
+# ==============================
+.DS_Store
+._*
