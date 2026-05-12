@@ -1,7 +1,7 @@
 # CLI API + WebUI
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tikhomirov/cliapi-webui/main/assets/logo.svg" alt="CLI API WebUI" width="120">
+  <img src="assets/logo.svg" alt="CLI API WebUI" width="120">
 </p>
 
 <p align="center">
@@ -75,18 +75,14 @@ Open http://localhost:3001 — the WebUI is ready.
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="45%">
+  <img src="docs/screenshots/dashboard.webp" alt="Dashboard" width="45%">
   &nbsp;
-  <img src="docs/screenshots/providers.png" alt="Providers" width="45%">
+  <img src="docs/screenshots/providers.webp" alt="Providers" width="45%">
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/chat.png" alt="Chat Interface" width="45%">
-  &nbsp;
-  <img src="docs/screenshots/models.png" alt="Models" width="45%">
+  <img src="docs/screenshots/models.webp" alt="Models" width="45%">
 </p>
-
-> 💡 *Screenshots are placeholder paths. Replace with actual screenshots in `docs/screenshots/` directory.*
 
 ## 🏗️ Architecture
 
