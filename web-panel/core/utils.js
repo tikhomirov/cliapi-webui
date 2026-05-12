@@ -48,7 +48,7 @@ export function fmtDuration(ms) {
 export function fmtDate(d) {
   if (!d) return '-';
   const date = new Date(d);
-  return date.toLocaleString('ru-RU', {
+  return date.toLocaleString('en-US', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
@@ -68,14 +68,14 @@ export function fmtRelative(d) {
   if (!d) return '-';
   const diff = Date.now() - new Date(d).getTime();
   const seconds = Math.floor(diff / 1000);
-  if (seconds < 10) return 'только что';
-  if (seconds < 60) return `${seconds} сек назад`;
+  if (seconds < 10) return 'just now';
+  if (seconds < 60) return `${seconds} s ago`;
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} мин назад`;
+  if (minutes < 60) return `${minutes} m ago`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} ч ${minutes % 60} мин назад`;
+  if (hours < 24) return `${hours} h ${minutes % 60} m ago`;
   const days = Math.floor(hours / 24);
-  if (days < 7) return `${days} дн назад`;
+  if (days < 7) return `${days} d ago`;
   return fmtDate(d);
 }
 

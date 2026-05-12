@@ -115,14 +115,14 @@ function renderRequests(container) {
   const lastTime = allRequests[0]?.time;
   const dateRangeInfo = h('div', { className: 'flex justify-between items-center text-sm text-muted mb-3' }, [
     h('div', { className: 'flex gap-4' }, [
-      h('span', {}, ['📅 С: ' + fmtDate(firstTime)]),
-      h('span', {}, ['По: ' + fmtDate(lastTime)]),
-      h('span', {}, ['Всего: ' + allRequests.length]),
+      h('span', {}, ['📅 From: ' + fmtDate(firstTime)]),
+      h('span', {}, ['To: ' + fmtDate(lastTime)]),
+      h('span', {}, ['Total: ' + allRequests.length]),
     ]),
     h('button', { className: 'btn btn-sm btn-ghost', onClick: () => { 
       fetchUsage().then(u => set('usage', u)).catch(() => {});
       fetchRequestLogs().then(r => set('requestLogs', r)).catch(() => {});
-    } }, ['🔄 Обновить']),
+    } }, ['🔄 Refresh']),
   ]);
   container.appendChild(dateRangeInfo);
 

@@ -76,15 +76,15 @@ export function init(container) {
         console.error('View render error:', e);
         container.innerHTML = `<div class="empty-state">
           <div class="empty-state-icon">⚠️</div>
-          <div class="empty-state-title">Ошибка загрузки</div>
+          <div class="empty-state-title">Loading Error</div>
           <div class="empty-state-desc">${e.message}</div>
         </div>`;
       }
     } else {
       container.innerHTML = `<div class="empty-state">
         <div class="empty-state-icon">🔍</div>
-        <div class="empty-state-title">Страница не найдена</div>
-        <div class="empty-state-desc">Переход на Dashboard...</div>
+        <div class="empty-state-title">Page Not Found</div>
+        <div class="empty-state-desc">Redirecting to Dashboard...</div>
       </div>`;
       setTimeout(() => navigate('dashboard'), 1500);
     }

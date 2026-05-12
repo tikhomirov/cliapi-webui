@@ -7,24 +7,24 @@ import { estimateTokens } from './utils.js';
 /** @type {Record<string, {name: string, prompt: string, expectedKeywords: string[]}>} */
 export const BENCHMARK_TEMPLATES = {
   standard: {
-    name: 'Стандартный',
-    prompt: 'Объясни квантовую запутанность простыми словами. Максимум 3 предложения.',
-    expectedKeywords: ['квант', 'запутанность', 'частиц'],
+    name: 'Standard',
+    prompt: 'Explain quantum entanglement in simple terms. Maximum 3 sentences.',
+    expectedKeywords: ['quantum', 'entanglement', 'hастиц'],
   },
   code: {
-    name: 'Код',
-    prompt: 'Напиши функцию quicksort на Python с докстрингом и примером использования.',
+    name: 'Code',
+    prompt: 'Write a quicksort function in Python with docstring and usage example.',
     expectedKeywords: ['def', 'quicksort', 'sort'],
   },
   math: {
-    name: 'Математика',
-    prompt: 'Реши квадратное уравнение: 2x² + 5x - 3 = 0. Покажи все шаги решения.',
-    expectedKeywords: ['x', '=', 'дискриминант'],
+    name: 'Math',
+    prompt: 'Solve the quadratic equation: 2x² + 5x - 3 = 0. Show all steps.',
+    expectedKeywords: ['x', '=', 'discriminant'],
   },
   context: {
-    name: 'Контекст',
-    prompt: 'Прочитай текст и выдели 3 главных тезиса:\n\nИскусственный интеллект — это область компьютерных наук...',
-    expectedKeywords: ['тезис', 'главн', 'вывод'],
+    name: 'Context',
+    prompt: 'Проhитай текст и выдели 3 mainых thesisа:\n\nИскусственный интеллект — это область компьютерных наук...',
+    expectedKeywords: ['thesis', 'main', 'conclusion'],
   },
 };
 

@@ -130,9 +130,9 @@ export function ModelCard(model, { onBenchmark, onConfigure, onDetail, selected,
       : null,
 
     h('div', { className: 'model-card-actions' }, [
-      onBenchmark ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onBenchmark(model) }, ['📊 Бенчмарк']) : null,
-      onConfigure ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onConfigure(model) }, ['⚙️ Настроить']) : null,
-      onDetail ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onDetail(model) }, ['📋 Подробнее']) : null,
+      onBenchmark ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onBenchmark(model) }, ['📊 Бенhмарк']) : null,
+      onConfigure ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onConfigure(model) }, ['⚙️ Configure']) : null,
+      onDetail ? h('button', { className: 'btn btn-sm btn-ghost', onClick: () => onDetail(model) }, ['📋 Details']) : null,
     ]),
   ]);
 }

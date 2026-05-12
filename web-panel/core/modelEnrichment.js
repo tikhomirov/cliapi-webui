@@ -181,24 +181,24 @@ function findOpenRouterModel(localId, meta, orMap) {
 
 function guessDescription(id) {
   const d = id.toLowerCase();
-  if (d.includes('gpt-5.4')) return 'GPT-5.4 — флагманская мультимодальная модель OpenAI с глубоким рассуждением';
-  if (d.includes('gpt-5.3')) return 'GPT-5.3 Codex — код-оптимизированная модель OpenAI';
-  if (d.includes('gpt-5.2')) return 'GPT-5.2 — мощная мультимодальная модель OpenAI';
-  if (d.includes('gpt-5.1')) return 'GPT-5.1 — быстрая модель OpenAI нового поколения';
-  if (d.includes('gpt-5-codex')) return 'GPT-5 Codex — модель OpenAI для генерации кода';
-  if (d.includes('gpt-5') && !d.includes('.')) return 'GPT-5 — мощная модель OpenAI';
-  if (d.includes('deepseek') || d.includes('ds-v4')) return 'DeepSeek V4 — продвинутая модель с глубоким рассуждением';
-  if (d.includes('claude')) return 'Claude — мультимодальный ИИ-ассистент от Anthropic';
-  if (d.includes('gemini')) return 'Gemini — мультимодальная модель Google';
-  if (d.includes('qwen')) return 'Qwen — языковая модель от Alibaba Cloud';
-  if (d.includes('kimi')) return 'Kimi — ИИ-ассистент от Moonshot AI';
-  if (d.includes('glm')) return 'GLM — языковая модель от Zhipu AI (知谱)';
-  if (d.includes('minimax')) return 'MiniMax — мультимодальная модель от MiniMax';
-  if (d.includes('mimo')) return 'MiMo — мультимодальная модель от Xiaomi';
-  if (d.includes('llama')) return 'LLaMA — открытая модель от Meta';
-  if (d.includes('gemma')) return 'Gemma — компактная открытая модель от Google';
-  if (d.includes('codestral') || d.includes('mistral')) return 'Mistral — европейская языковая модель';
-  if (d.includes('pixtral')) return 'Pixtral — мультимодальная модель от Mistral';
+  if (d.includes('gpt-5.4')) return "OpenAI's flagship multimodal model with deep reasoning";
+  if (d.includes('gpt-5.3')) return "OpenAI code-optimized model";
+  if (d.includes('gpt-5.2')) return "Powerful OpenAI multimodal model";
+  if (d.includes('gpt-5.1')) return "Fast OpenAI next-generation model";
+  if (d.includes('gpt-5-codex')) return "OpenAI model for code generation";
+  if (d.includes('gpt-5') && !d.includes('.')) return "Powerful OpenAI model";
+  if (d.includes('deepseek') || d.includes('ds-v4')) return "Advanced model with deep reasoning";
+  if (d.includes('claude')) return "Multimodal AI assistant by Anthropic";
+  if (d.includes('gemini')) return "Google multimodal AI model";
+  if (d.includes('qwen')) return "Language model by Alibaba Cloud";
+  if (d.includes('kimi')) return "AI assistant by Moonshot AI";
+  if (d.includes('glm')) return "Language model by Zhipu AI";
+  if (d.includes('minimax')) return "Multimodal model by MiniMax";
+  if (d.includes('mimo')) return "Multimodal model by Xiaomi";
+  if (d.includes('llama')) return "Open model by Meta";
+  if (d.includes('gemma')) return "Compact open model by Google";
+  if (d.includes('codestral') || d.includes('mistral')) return "European language model by Mistral";
+  if (d.includes('pixtral')) return "Multimodal model by Mistral";
   return '';
 }
 

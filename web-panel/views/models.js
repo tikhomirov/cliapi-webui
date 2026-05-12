@@ -64,10 +64,10 @@ function isModelEnabled(modelId) {
 }
 
 const FILTER_OPTIONS = [
-  { key: 'all', label: 'Все' },
-  { key: 'available', label: '🟢 Доступны' },
-  { key: 'unavailable', label: '🔴 Недоступны' },
-  { key: 'disabled', label: '🔴 Отключены' },
+  { key: 'all', label: 'All' },
+  { key: 'available', label: '🟢 Available' },
+  { key: 'unavailable', label: '🔴 Unavailable' },
+  { key: 'disabled', label: '🔴 Disabled' },
   { key: 'vision', label: '🖼️ Vision' },
   { key: 'reasoning', label: '🧠 Reasoning' },
 ];
@@ -98,7 +98,7 @@ export function renderModels(container) {
       h('button', {
         className: `tab ${!currentProvider ? 'active' : ''}`,
         onClick: () => set('modelProviderFilter', null),
-      }, ['🏢 Все провайдеры'])
+      }, ['🏢 All Providers'])
     );
     for (const p of providers) {
       providerTabsContainer.appendChild(
@@ -114,7 +114,7 @@ export function renderModels(container) {
     h('input', {
       className: 'form-input',
       style: { maxWidth: '300px' },
-      placeholder: '🔍 Поиск по имени, алиасу, провайдеру...',
+      placeholder: '🔍 Search by name, alias, provider...',
       value: get('modelSearch') || '',
       onInput: debounce(e => set('modelSearch', e.target.value), 200),
     }),
@@ -125,16 +125,16 @@ export function renderModels(container) {
       onClick: () => {
         localStorage.removeItem('openrouter_models_v3');
         loadModelsData();
-        toastOk('Кэш обновляется...');
+        toastOk('Cache refreshing...');
       },
-    }, ['🔄 Обновить кэш']),
+    }, ['🔄 Refresh Cache']),
     h('button', {
       className: 'btn btn-sm btn-warning',
       onClick: async () => {
         // Show loading state
         const btn = event.target;
         btn.disabled = true;
-        btn.textContent = '⏳ Проверка...';
+        btn.textContent = '⏳ Checking...';
         
         try {
           // Get management key from localStorage
@@ -146,15 +146,15 @@ export function renderModels(container) {
           });
           
           if (!staleRes.ok) {
-            throw new Error('Не удалось получить список моделей');
+            throw new Error('Failed to get model list');
           }
           
           const staleData = await staleRes.json();
           
           if (staleData.totalStale === 0) {
-            toastOk('Все модели актуальны, устаревших нет!');
+            toastOk('All models are up to date, no stale models!');
             btn.disabled = false;
-            btn.textContent = '🧹 Очистить модели';
+            btn.textContent = '🧹 Cleanup Models';
             return;
           }
           
@@ -176,24 +176,24 @@ export function renderModels(container) {
             content: h('div', {}, [
               h('p', {}, `Найдено ${staleData.totalStale} устаревших моделей, которых нет в upstream:`),
               h('div', { innerHTML: staleListHtml }),
-              h('p', { style: { marginTop: '1rem', fontWeight: 'bold' } }, 'Удалить эти модели из конфига?'),
+              h('p', { style: { marginTop: '1rem', fontWeight: 'bold' } }, 'Remove these models from config?'),
             ]),
             buttons: [
               {
-                label: '❌ Отмена',
+                label: '❌ Cancel',
                 className: 'btn btn-ghost',
                 onClick: () => {
                   closeModal();
                   btn.disabled = false;
-                  btn.textContent = '🧹 Очистить модели';
+                  btn.textContent = '🧹 Cleanup Models';
                 }
               },
               {
-                label: '🗑️ Удалить',
+                label: '🗑️ Delete',
                 className: 'btn btn-danger',
                 onClick: async () => {
                   closeModal();
-                  btn.textContent = '⏳ Удаление...';
+                  btn.textContent = '⏳ Deleting...';
                   
                   try {
                     const cleanupRes = await fetch('/v0/management/models/cleanup', {
@@ -213,23 +213,23 @@ export function renderModels(container) {
                     loadModelsData();
                     
                   } catch (err) {
-                    toastError('Ошибка: ' + err.message);
+                    toastError('Error: ' + err.message);
                   }
                   
                   btn.disabled = false;
-                  btn.textContent = '🧹 Очистить модели';
+                  btn.textContent = '🧹 Cleanup Models';
                 }
               }
             ]
           });
           
         } catch (err) {
-          toastError('Ошибка: ' + err.message);
+          toastError('Error: ' + err.message);
           btn.disabled = false;
-          btn.textContent = '🧹 Очистить модели';
+          btn.textContent = '🧹 Cleanup Models';
         }
       },
-    }, ['🧹 Очистить модели']),
+    }, ['🧹 Cleanup Models']),
   ]);
 
   const grid = h('div', { className: 'models-grid', id: 'models-grid' });
@@ -283,7 +283,7 @@ async function loadModelsData(statsEl) {
         fetchUsage().catch(() => null),
         fetchProvidersCheck().catch(() => ({ providers: [], allModels: [] })),
       ]),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Таймаут загрузки данных (30с)')), 30000)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Data loading timeout (30s)')), 30000)),
     ]);
   } catch (timeoutErr) {
     console.error('Timeout loading models data:', timeoutErr);
@@ -425,8 +425,8 @@ function renderModelGrid(container, statsEl) {
   if (!filtered.length) {
     container.appendChild(h('div', { className: 'empty-state' }, [
       h('div', { className: 'empty-state-icon' }, ['🔍']),
-      h('div', { className: 'empty-state-title' }, ['Модели не найдены']),
-      h('div', { className: 'empty-state-desc' }, ['Измените фильтры или поисковый запрос']),
+      h('div', { className: 'empty-state-title' }, ['Models not found']),
+      h('div', { className: 'empty-state-desc' }, ['Change filters or search query']),
     ]));
     return;
   }
@@ -470,8 +470,8 @@ function renderModelCard(model, enabledModels) {
 
   const isEnabled = !enabledModels[model.id];
   const statusBadge = model.status === 'available'
-    ? h('span', { className: 'badge badge-ok' }, ['🟢 Доступна'])
-    : h('span', { className: 'badge badge-warn' }, ['⚪ Недоступна']);
+    ? h('span', { className: 'badge badge-ok' }, ['🟢 Available'])
+    : h('span', { className: 'badge badge-warn' }, ['⚪ Unavailable']);
 
   const ctxStr = model.contextLength
     ? model.contextLength >= 1000000
@@ -492,8 +492,8 @@ function renderModelCard(model, enabledModels) {
     : '—';
 
   const sourceTag = model.dataSource === 'openrouter'
-    ? h('span', { className: 'tag tag-info' }, ['✓ Проверено'])
-    : h('span', { className: 'tag tag-muted' }, ['≈ Оценка']);
+    ? h('span', { className: 'tag tag-info' }, ['✓ Verified'])
+    : h('span', { className: 'tag tag-muted' }, ['≈ Estimated']);
 
   // Build name line: show alias arrow if this is an alias
   const nameLine = model.isAlias && model.realId
@@ -506,7 +506,7 @@ function renderModelCard(model, enabledModels) {
   // Build subtitle line
   const subtitleParts = [];
   if (model.alias) subtitleParts.push(`алиас: ${model.alias}`);
-  if (model.payloadOverride) subtitleParts.push('⚙️ Переопределения');
+  if (model.payloadOverride) subtitleParts.push('⚙️ Overrides');
   const subtitle = subtitleParts.join(' • ');
 
   const card = h('div', { className: 'model-card' }, [
@@ -544,14 +544,14 @@ function renderModelCard(model, enabledModels) {
             _renderModelGridFn(_statsElRef);
           }
         })
-      }, ['✏️ Редактировать']),
+      }, ['✏️ Edit']),
       h('button', {
         className: `btn btn-sm ${isEnabled ? 'btn-primary' : 'btn-ghost'}`,
         style: { marginLeft: '0.5rem' },
         onClick: () => {
           toggleModel(model.id, !isEnabled);
         },
-      }, [isEnabled ? '🔴 Выключить' : '🟢 Включить']),
+      }, [isEnabled ? '🔴 Disable' : '🟢 Enable']),
     ]),
   ]);
 
@@ -561,17 +561,17 @@ function renderModelCard(model, enabledModels) {
 /* ── Model Detail Modal ── */
 function showModelDetail(model) {
   const pricingRows = model.pricing ? [
-    { label: 'Входящие', value: `$${model.pricing.input.toFixed(2)} / 1M токенов` },
-    { label: 'Исходящие', value: `$${model.pricing.output.toFixed(2)} / 1M токенов` },
-    { label: 'Кэш', value: `$${model.pricing.cached.toFixed(2)} / 1M токенов` },
-  ] : [{ label: 'Стоимость', value: 'Нет данных' }];
+    { label: 'Input', value: `$${model.pricing.input.toFixed(2)} / 1M токенов` },
+    { label: 'Output', value: `$${model.pricing.output.toFixed(2)} / 1M токенов` },
+    { label: 'Cache', value: `$${model.pricing.cached.toFixed(2)} / 1M токенов` },
+  ] : [{ label: 'Pricing', value: 'No data' }];
 
   const statsRows = model.stats ? [
-    { label: 'Средняя задержка', value: fmtDuration(model.stats.avgLatency) },
+    { label: 'Avg latency', value: fmtDuration(model.stats.avgLatency) },
     { label: 'Среднее токенов/запрос', value: fmtNumber(model.stats.avgTokens) },
-    { label: 'Всего запросов', value: fmtNumber(model.stats.totalRequests) },
-    { label: 'Доля ошибок', value: `${model.stats.errorRate}%` },
-  ] : [{ label: 'Статистика', value: 'Пока нет данных' }];
+    { label: 'Total Requests', value: fmtNumber(model.stats.totalRequests) },
+    { label: 'Error rate', value: `${model.stats.errorRate}%` },
+  ] : [{ label: 'Statistics', value: 'No data yet' }];
 
   const payloadRows = model.payloadOverride
     ? Object.entries(model.payloadOverride).map(([k, v]) => ({
@@ -585,9 +585,9 @@ function showModelDetail(model) {
     capRows.push({ label: 'Алиас →', value: model.realId });
   }
   capRows.push(
-    { label: 'Контекст', value: model.contextLength ? fmtNumber(model.contextLength) : '?' },
+    { label: 'Context', value: model.contextLength ? fmtNumber(model.contextLength) : '?' },
     { label: 'Макс. вывод', value: model.maxCompletionTokens ? fmtNumber(model.maxCompletionTokens) : '?' },
-    { label: 'Провайдер', value: model.provider },
+    { label: 'Provider', value: model.provider },
     { label: 'Визуальный ввод', value: model.hasVision ? '✅' : '❌' },
     { label: 'Аудио ввод', value: model.hasAudio ? '✅' : '❌' },
     { label: 'Рассуждения', value: model.hasReasoning ? '✅' : '❌' },
@@ -616,25 +616,25 @@ function showModelDetail(model) {
 
         h('div', { className: 'flex gap-4', style: { flexWrap: 'wrap' } }, [
           h('div', { style: { flex: 1, minWidth: '250px' } }, [
-            h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-secondary)' } }, ['📊 Характеристики']),
+            h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-secondary)' } }, ['📊 Capabilities']),
             DataTable({ columns: [{ key: 'label', label: '' }, { key: 'value', label: '' }], rows: capRows }),
           ]),
           h('div', { style: { flex: 1, minWidth: '250px' } }, [
-            h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-secondary)' } }, ['💰 Стоимость']),
+            h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.75rem', color: 'var(--text-secondary)' } }, ['💰 Pricing']),
             DataTable({ columns: [{ key: 'label', label: '' }, { key: 'value', label: '' }], rows: pricingRows }),
           ]),
         ]),
 
-        h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['⚙️ Параметры (Payload Override)']),
+        h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['⚙️ Parameters (Payload Override)']),
         DataTable({ columns: [{ key: 'label', label: 'Параметр' }, { key: 'value', label: 'Значение' }], rows: payloadRows }),
 
         model.stats ? h('div', {}, [
-          h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['📈 Производительность (24ч)']),
+          h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['📈 Performance (24h)']),
           DataTable({ columns: [{ key: 'label', label: '' }, { key: 'value', label: '' }], rows: statsRows }),
         ]) : null,
 
         model.supportedParameters?.length ? h('div', {}, [
-          h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['🔧 Поддерживаемые параметры']),
+          h('h4', { style: { fontSize: '0.875rem', fontWeight: 600, marginTop: '0.5rem', color: 'var(--text-secondary)' } }, ['🔧 Supported Parameters']),
           h('div', { className: 'flex gap-1', style: { flexWrap: 'wrap' } },
             model.supportedParameters.map(p => h('span', { className: 'tag' }, [p]))
           ),
@@ -642,7 +642,7 @@ function showModelDetail(model) {
       ]),
     ],
     footer: [
-      h('button', { className: 'btn btn-ghost', onClick: closeModal }, ['Закрыть']),
+      h('button', { className: 'btn btn-ghost', onClick: closeModal }, ['Close']),
     ],
   });
 }
@@ -670,7 +670,7 @@ function showModelEditModal(model, onSave) {
     className: 'form-input',
     type: 'text',
     value: modelParams.alias || model.alias || '',
-    placeholder: 'Например: gpt-4-turbo',
+    placeholder: 'E.g.: gpt-4-turbo',
   });
   
   // Payload override textarea - show as JSON
@@ -695,13 +695,13 @@ function showModelEditModal(model, onSave) {
     title: `✏️ Редактировать: ${model.id}`,
     children: [h('div', { style: { display: 'flex', flexDirection: 'column', gap: '1rem' } }, [
       h('div', {}, [
-        h('label', { style: { display: 'block', marginBottom: '0.5rem', fontWeight: 500 } }, ['Алиас (alias)']), 
+        h('label', { style: { display: 'block', marginBottom: '0.5rem', fontWeight: 500 } }, ['Alias']), 
         aliasInput,
         h('div', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' } }, ['Имя модели, которое будет использоваться в API запросах']),
       ]),
       
       h('div', {}, [
-        h('label', { style: { display: 'block', marginBottom: '0.5rem', fontWeight: 500 } }, ['Переопределения payload (JSON)']), 
+        h('label', { style: { display: 'block', marginBottom: '0.5rem', fontWeight: 500 } }, ['Payload Overrides (JSON)']), 
         payloadTextarea,
         h('div', { style: { fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' } }, ['Дополнительные параметры, которые будут добавлены к каждому запросу. Например: max_tokens, temperature, top_p']),
       ]),
@@ -723,7 +723,7 @@ function showModelEditModal(model, onSave) {
           saveModelParams(allParams);
           closeModal();
           if (onSave) onSave();
-          toastOk('Параметры сброшены');
+          toastOk('Parameters reset');
         }
       }, ['🗑️ Сбросить']), 
       h('button', { className: 'btn btn-ghost', onClick: closeModal }, ['Отмена']),
@@ -754,7 +754,7 @@ function showModelEditModal(model, onSave) {
           
           closeModal();
           if (onSave) onSave();
-          toastOk('Сохранено для ' + model.id);
+          toastOk('Saved for ' + model.id);
         }
       }, ['💾 Сохранить']),
     ],

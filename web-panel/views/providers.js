@@ -11,10 +11,10 @@ import { toastOk, toastError } from '../components/toast.js';
 import { h, deepClone, debounce } from '../core/utils.js';
 
 const TABS = [
-  { key: 'connections', label: 'Подключения', icon: '🔌' },
+  { key: 'connections', label: 'Connections', icon: '🔌' },
   { key: 'oauth', label: 'OAuth', icon: '🔐' },
-  { key: 'check', label: 'Проверка', icon: '🔍' },
-  { key: 'models', label: 'Модели', icon: '🧩' },
+  { key: 'check', label: 'Check', icon: '🔍' },
+  { key: 'models', label: 'Models', icon: '🧩' },
   { key: 'payload', label: 'Payload', icon: '⚙️' },
 ];
 
@@ -71,11 +71,11 @@ function renderConnections(container) {
 
   // Section: OpenAI-compatibility providers
   sections.push(
-    h('h3', { style: { margin: '1rem 0 0.5rem', fontSize: '1rem' } }, ['📡 OpenAI-совместимые провайдеры']),
+    h('h3', { style: { margin: '1rem 0 0.5rem', fontSize: '1rem' } }, ['📡 OpenAI-Compatible Providers']),
   );
 
   if (!providers.length) {
-    sections.push(h('p', { className: 'text-muted' }, ['Нет настроенных провайдеров']));
+    sections.push(h('p', { className: 'text-muted' }, ['No configured providers']));
   } else {
     const grid = h('div', { className: 'card-grid' });
     for (const p of providers) {
@@ -86,7 +86,7 @@ function renderConnections(container) {
 
   // Section: OAuth API keys configured in config
   sections.push(
-    h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['🔑 API-ключи (OAuth провайдеры)']),
+    h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['🔑 API Keys (OAuth Providers)']),
   );
 
   const keyProviders = [
@@ -103,7 +103,7 @@ function renderConnections(container) {
         h('span', { style: { fontSize: '1.2rem', marginRight: '0.5rem' } }, [kp.icon]),
         h('strong', {}, [kp.label]),
       ]),
-      h('span', { className: 'badge badge-ok' }, [`${count} ключ${count === 1 ? '' : count < 5 ? 'а' : 'ей'}`]),
+      h('span', { className: 'badge badge-ok' }, [`${count} ключ${count === 1 ? '' : count < 5 ? 's' : 's'}`]),
     ]));
   }
 
@@ -111,7 +111,7 @@ function renderConnections(container) {
   const oauthAliases = config['oauth-model-alias'] || {};
   if (Object.keys(oauthAliases).length) {
     sections.push(
-      h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['🏷️ OAuth-алиасы моделей']),
+      h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['🏷️ OAuth Model Aliases']),
     );
     const aliasRows = [];
     for (const [channel, entries] of Object.entries(oauthAliases)) {
@@ -119,16 +119,16 @@ function renderConnections(container) {
         aliasRows.push({
           channel,
           model: entry.name,
-          alias: entry.alias || '(без алиаса)',
+          alias: entry.alias || '(no alias)',
           fork: entry.fork ? '✅' : '❌',
         });
       }
     }
     sections.push(DataTable({
       columns: [
-        { key: 'channel', label: 'Канал' },
-        { key: 'model', label: 'Модель' },
-        { key: 'alias', label: 'Алиас' },
+        { key: 'channel', label: 'Channel' },
+        { key: 'model', label: 'Model' },
+        { key: 'alias', label: 'Alias' },
         { key: 'fork', label: 'Fork' },
       ],
       rows: aliasRows,
@@ -141,7 +141,7 @@ function renderConnections(container) {
     sections.push(
       h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['☁️ Vertex AI']),
       h('div', { className: 'card' }, [
-        h('span', { className: 'badge badge-ok' }, [`${vertexKeys.length} ключ${vertexKeys.length === 1 ? '' : vertexKeys.length < 5 ? 'а' : 'ей'}`]),
+        h('span', { className: 'badge badge-ok' }, [`${vertexKeys.length} ключ${vertexKeys.length === 1 ? '' : vertexKeys.length < 5 ? 's' : 's'}`]),
       ]),
     );
   }
@@ -166,8 +166,8 @@ function renderCompatCard(p) {
       ]),
     ]),
     h('div', { className: 'flex gap-4', style: { fontSize: '0.85rem' } }, [
-      h('span', {}, [`🔑 ${keyCount} ключ${keyCount === 1 ? '' : keyCount < 5 ? 'а' : 'ей'}`]),
-      h('span', {}, [`🧩 ${modelsCount} модель${modelsCount === 1 ? '' : modelsCount < 5 ? (modelsCount < 10 ? 'и' : 'ей') : 'ей'}`]),
+      h('span', {}, [`🔑 ${keyCount} ключ${keyCount === 1 ? '' : keyCount < 5 ? 's' : 's'}`]),
+      h('span', {}, [`🧩 ${modelsCount} модель${modelsCount === 1 ? '' : modelsCount < 5 ? (modelsCount < 10 ? 'и' : 's') : 's'}`]),
       p.prefix ? h('span', {}, [`🏷️ ${p.prefix}`]) : null,
     ].filter(Boolean)),
   ]);
@@ -192,7 +192,7 @@ function editProvider(p) {
       ]),
     ],
     footer: [
-      h('button', { className: 'btn btn-ghost', onClick: closeModal }, ['Отмена']),
+      h('button', { className: 'btn btn-ghost', onClick: closeModal }, ['Cancel']),
       h('button', {
         className: 'btn btn-primary',
         onClick: async () => {
@@ -216,7 +216,7 @@ function editProvider(p) {
             toastError(e.message);
           }
         },
-      }, ['Сохранить']),
+      }, ['Save']),
     ],
   });
 }
@@ -243,7 +243,7 @@ async function deleteProvider(name) {
 async function renderOAuth(container) {
   const authStatusEl = h('div', { style: { textAlign: 'center' } }, [
     h('div', { className: 'spinner' }),
-    h('p', { className: 'text-muted' }, ['Загрузка статуса авторизации...']),
+    h('p', { className: 'text-muted' }, ['Loading auth status...']),
   ]);
   container.appendChild(authStatusEl);
 
@@ -298,7 +298,7 @@ async function renderOAuth(container) {
         h('button', {
           className: 'btn btn-sm btn-primary',
           onClick: () => startOAuth(prov.key, prov.label),
-        }, ['🔐 Войти через OAuth']),
+        }, ['🔐 Login via OAuth']),
         isAuthed
           ? h('button', {
               className: 'btn btn-sm btn-ghost',
@@ -315,7 +315,7 @@ async function renderOAuth(container) {
   // Also show auth files list
   if (authFiles.length) {
     container.appendChild(
-      h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['📁 OAuth-токены (Auth Files)']),
+      h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['📁 OAuth Tokens (Auth Files)']),
     );
     const fileRows = authFiles.slice(0, 20).map(f => ({
       name: f.name || f.file_name || '?',
@@ -325,10 +325,10 @@ async function renderOAuth(container) {
     }));
     container.appendChild(DataTable({
       columns: [
-        { key: 'name', label: 'Файл' },
-        { key: 'channel', label: 'Канал' },
-        { key: 'status', label: 'Статус' },
-        { key: 'models', label: 'Моделей' },
+        { key: 'name', label: 'File' },
+        { key: 'channel', label: 'Channel' },
+        { key: 'status', label: 'Status' },
+        { key: 'models', label: 'Models' },
       ],
       rows: fileRows,
     }));
@@ -410,7 +410,7 @@ async function doProviderCheck(container) {
     if (!providers.length) {
       resultsEl.appendChild(h('div', { className: 'empty-state' }, [
         h('div', { className: 'empty-state-icon' }, ['⚠️']),
-        h('div', { className: 'empty-state-title' }, ['Нет настроенных провайдеров']),
+        h('div', { className: 'empty-state-title' }, ['No configured providers']),
         h('div', { className: 'empty-state-desc' }, ['Добавьте провайдеры в секции openai-compatibility']),
       ]));
       return;
@@ -451,7 +451,7 @@ function providerStatusMeta(status) {
     case 'models-via-proxy': return { color: 'badge-ok', icon: '🌐', text: 'Есть модели в прокси' };
     case 'no-models-endpoint': return { color: 'badge-warn', icon: '🟡', text: 'Нет /models endpoint' };
     case 'oauth-inactive': return { color: 'badge-warn', icon: '⚪', text: 'OAuth не найден' };
-    case 'timeout': return { color: 'badge-warn', icon: '🟡', text: 'Таймаут' };
+    case 'timeout': return { color: 'badge-warn', icon: '🟡', text: 'Timeout' };
     default: return { color: 'badge-error', icon: '🔴', text: 'Ошибка' };
   }
 }
@@ -668,7 +668,7 @@ async function renderModelsTab(container) {
       const isOk = p.status === 'ok' || p.status === 'oauth-active';
       const statusColor = isOk ? 'var(--color-success, #22c55e)' : 'var(--color-error, #ef4444)';
       const statusIcon = isOk ? '🟢' : '🔴';
-      const statusText = p.status === 'ok' ? 'Доступен' : p.status === 'oauth-active' ? 'OAuth активен' : 'Недоступен';
+      const statusText = p.status === 'ok' ? 'Available' : p.status === 'oauth-active' ? 'OAuth активен' : 'Unavailable';
 
       const providerCard = h('div', { 
         className: 'card',
@@ -862,9 +862,9 @@ async function renderModelsTab(container) {
     container.appendChild(DataTable({
       columns: [
         { key: 'status', label: '' },
-        { key: 'model', label: 'Модель' },
-        { key: 'alias', label: 'Алиас' },
-        { key: 'provider', label: 'Провайдер' },
+        { key: 'model', label: 'Model' },
+        { key: 'alias', label: 'Alias' },
+        { key: 'provider', label: 'Provider' },
       ],
       rows: allModels,
     }));
@@ -887,9 +887,9 @@ async function renderModelsTab(container) {
     container.appendChild(h('h3', { style: { margin: '1.5rem 0 0.5rem', fontSize: '1rem' } }, ['🔐 OAuth-алиасы моделей']));
     container.appendChild(DataTable({
       columns: [
-        { key: 'channel', label: 'Канал' },
-        { key: 'model', label: 'Модель' },
-        { key: 'alias', label: 'Алиас' },
+        { key: 'channel', label: 'Channel' },
+        { key: 'model', label: 'Model' },
+        { key: 'alias', label: 'Alias' },
         { key: 'fork', label: 'Тип' },
       ],
       rows: aliasRows,
@@ -968,7 +968,7 @@ function renderPayloadOverrides(container) {
 
   container.appendChild(DataTable({
     columns: [
-      { key: 'models', label: 'Модели' },
+      { key: 'models', label: 'Models' },
       { key: 'params', label: 'Параметры' },
     ],
     rows,

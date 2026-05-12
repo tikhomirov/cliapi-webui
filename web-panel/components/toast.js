@@ -103,5 +103,5 @@ export function toastError(message, opts = {}) {
  * Convenience: show undo toast.
  */
 export function toastUndo(message, undoFn, opts = {}) {
-  showToast({ message, type: 'ok', undo: { label: 'Отменить', fn: undoFn }, ...opts });
+  showToast({ message, type: 'ok', undo: { label: 'Undo', fn: undoFn }, ...opts });
 }

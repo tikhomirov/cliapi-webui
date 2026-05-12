@@ -54,7 +54,7 @@ function saveCurrentChat(chat) {
 
 function generateChatTitle(messages) {
   const firstUser = messages.find(m => m.role === 'user');
-  if (!firstUser) return 'Новый чат';
+  if (!firstUser) return 'New Chat';
   let text = '';
   if (typeof firstUser.content === 'string') {
     text = firstUser.content;
@@ -63,7 +63,7 @@ function generateChatTitle(messages) {
     text = part?.text || '';
   }
   text = text.replace(/\s+/g, ' ').trim();
-  return text.slice(0, 60) + (text.length > 60 ? '…' : '') || 'Новый чат';
+  return text.slice(0, 60) + (text.length > 60 ? '…' : '') || 'New Chat';
 }
 
 function modelSupportsVision(modelId) {
@@ -180,11 +180,11 @@ function createModelSelector(onChange) {
   let open = false;
 
   const trigger = h('div', { className: 'chat-model-trigger', tabIndex: 0 }, [
-    h('span', { className: 'chat-model-trigger-text' }, [selected || 'Выберите модель…']),
+    h('span', { className: 'chat-model-trigger-text' }, [selected || 'Select model...']),
     h('span', { className: 'chat-model-trigger-arrow' }, ['▼']),
   ]);
 
-  const searchInput = h('input', { className: 'chat-model-search', type: 'text', placeholder: 'Поиск модели…' });
+  const searchInput = h('input', { className: 'chat-model-search', type: 'text', placeholder: 'Search model...' });
   const dropdownList = h('div', { className: 'chat-model-dropdown-list' });
   const dropdown = h('div', { className: 'chat-model-dropdown', hidden: true }, [
     searchInput,
@@ -193,7 +193,7 @@ function createModelSelector(onChange) {
 
   function setValue(value, label) {
     selected = value;
-    trigger.querySelector('.chat-model-trigger-text').textContent = label || value || 'Выберите модель…';
+    trigger.querySelector('.chat-model-trigger-text').textContent = label || value || 'Select model...';
     localStorage.setItem(SELECTED_MODEL_KEY, value);
     if (onChange) onChange(value);
   }
@@ -211,7 +211,7 @@ function createModelSelector(onChange) {
     }
 
     if (grouped.size === 0) {
-      dropdownList.appendChild(h('div', { className: 'chat-model-empty' }, ['Ничего не найдено']));
+      dropdownList.appendChild(h('div', { className: 'chat-model-empty' }, ['Nothing found']));
       return;
     }
 
@@ -223,8 +223,8 @@ function createModelSelector(onChange) {
             h('span', { className: 'chat-model-option-id' }, [m.id]),
             h('span', { className: 'chat-model-option-tags' }, [
               m.vision
-                ? h('span', { className: 'chat-model-option-tag is-on', title: 'Поддерживает изображения (vision)' }, ['🖼️ VISION'])
-                : h('span', { className: 'chat-model-option-tag is-off', title: 'Без поддержки изображений' }, ['🖼️ нет']),
+                ? h('span', { className: 'chat-model-option-tag is-on', title: 'Supports images (vision)' }, ['🖼️ VISION'])
+                : h('span', { className: 'chat-model-option-tag is-off', title: 'No image support' }, ['🖼️ нет']),
             ]),
           ]);
           if (selected === m.id) item.classList.add('active');
@@ -304,7 +304,7 @@ function createModelSelector(onChange) {
     if (!selected && models.length) {
       setValue(models[0].id, models[0].id);
     } else {
-      trigger.querySelector('.chat-model-trigger-text').textContent = selected || 'Выберите модель…';
+      trigger.querySelector('.chat-model-trigger-text').textContent = selected || 'Select model...';
     }
     renderDropdown();
   }
@@ -351,7 +351,7 @@ export function renderChat(container) {
 
     const def = {
       activeId: 'default',
-      prompts: [{ id: 'default', name: 'По умолчанию', text: legacy || '', updatedAt: Date.now() }],
+      prompts: [{ id: 'default', name: 'Default', text: legacy || '', updatedAt: Date.now() }],
     };
     try {
       localStorage.setItem(SYSTEM_PROMPTS_STORE_KEY, JSON.stringify(def));
@@ -375,7 +375,7 @@ export function renderChat(container) {
   function getActivePrompt() {
     const activeId = promptsStore.activeId || localStorage.getItem(SYSTEM_PROMPTS_ACTIVE_KEY) || promptsStore.prompts[0]?.id || null;
     promptsStore.activeId = activeId;
-    return promptsStore.prompts.find(p => p.id === activeId) || promptsStore.prompts[0] || { id: 'default', name: 'По умолчанию', text: '' };
+    return promptsStore.prompts.find(p => p.id === activeId) || promptsStore.prompts[0] || { id: 'default', name: 'Default', text: '' };
   }
 
   let systemPrompt = getActivePrompt().text || '';
@@ -387,7 +387,7 @@ export function renderChat(container) {
     historyList.innerHTML = '';
     const history = loadHistory();
     if (!history.chats.length) {
-      historyList.appendChild(h('div', { className: 'chat-history-empty' }, ['Нет сохранённых чатов']));
+      historyList.appendChild(h('div', { className: 'chat-history-empty' }, ['No saved chats']));
       return;
     }
     for (const chat of history.chats) {
@@ -395,7 +395,7 @@ export function renderChat(container) {
         day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit',
       });
       const item = h('div', { className: 'chat-history-item', dataset: { id: chat.id } }, [
-        h('div', { className: 'chat-history-title' }, [chat.title || 'Без названия']),
+        h('div', { className: 'chat-history-title' }, [chat.title || 'Untitled']),
         h('div', { className: 'chat-history-meta' }, [
           h('span', {}, [chat.model || '—']),
           h('span', {}, [date]),
@@ -491,8 +491,8 @@ export function renderChat(container) {
   // ── Model summary / context stats ──
   const modelSummary = h('div', { className: 'chat-model-summary' }, []);
 
-  const resetContextBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Очистить сообщения в этом чате' }, ['🧹 Сброс контекста']);
-  const compressContextBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Сжать историю: заменить старые сообщения краткой сводкой' }, ['🧠 Сжать контекст']);
+  const resetContextBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Clear messages in this chat' }, ['🧹 Сброс контекста']);
+  const compressContextBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Compress history: replace old messages with summary' }, ['🧠 Сжать контекст']);
 
   function contentToText(content) {
     if (typeof content === 'string') return content;
@@ -570,19 +570,19 @@ export function renderChat(container) {
     if (!messages.length) return;
     const model = modelSelector.getValue();
     if (!model) return;
-    if (!apiKey) { toastError('Нет доступного API ключа'); return; }
+    if (!apiKey) { toastError('No API key available'); return; }
 
     try {
       const toSummarize = messages.slice(0, Math.max(0, messages.length - 6));
       if (toSummarize.length < 4) {
-        toastError('Нечего сжимать: сообщений слишком мало');
+        toastError('Nothing to compress: too few messages');
         return;
       }
 
-      toastOk('Сжимаю контекст…');
+      toastOk('Compressing context...');
 
       const summaryReq = [
-        { role: 'system', content: 'Сожми контекст. Дай краткую сводку диалога в 10–20 пунктах + важные факты/предпочтения. Пиши по-русски.' },
+        { role: 'system', content: 'Summarize this conversation in 10-20 bullet points + important facts/preferences.' },
         ...toSummarize.map(m => ({
           role: m.role,
           content: Array.isArray(m.content)
@@ -608,7 +608,7 @@ export function renderChat(container) {
       renderMessages();
       saveCurrentChat({ id: chatId, messages, model, systemPromptId: promptsStore.activeId, title: generateChatTitle(messages), createdAt: Date.now() });
       updateModelSummary();
-      toastOk('Контекст сжат');
+      toastOk('Context compressed');
     } catch (e) {
       toastError(e.message || String(e));
     }
@@ -623,7 +623,7 @@ export function renderChat(container) {
       messagesBox.appendChild(h('div', { className: 'chat-empty-state' }, [
         'Выберите модель и отправьте сообщение.',
         h('br'),
-        h('span', { className: 'text-muted', style: { fontSize: '0.8rem' } }, ['Поддерживается отправка изображений для vision-моделей.']),
+        h('span', { className: 'text-muted', style: { fontSize: '0.8rem' } }, ['Image upload supported for vision models.']),
       ]));
       return;
     }
@@ -644,7 +644,7 @@ export function renderChat(container) {
         h('div', { className: 'chat-bubble-header' }, [
           h('div', { className: 'chat-bubble-role' }, [msg.role]),
           h('div', { className: 'chat-bubble-actions' }, [
-            h('button', { className: 'chat-copy-btn', title: 'Копировать сообщение' }, ['⧉']),
+            h('button', { className: 'chat-copy-btn', title: 'Copy message' }, ['⧉']),
           ]),
         ]),
         h('div', { className: 'chat-bubble-content' }, []),
@@ -656,8 +656,8 @@ export function renderChat(container) {
         e.preventDefault();
         e.stopPropagation();
         const ok = await copyToClipboard(contentToPlainText(msg.content));
-        if (ok) toastOk('Скопировано');
-        else toastError('Не удалось скопировать');
+        if (ok) toastOk('Copied');
+        else toastError('Failed to copy');
       });
 
       messagesBox.appendChild(bubble);
@@ -671,7 +671,7 @@ export function renderChat(container) {
   const userInput = h('textarea', {
     className: 'form-textarea chat-input',
     rows: 2,
-    placeholder: 'Введите сообщение…',
+    placeholder: 'Type a message...',
   });
   userInput.addEventListener('input', debounce(() => updateModelSummary(), 150));
 
@@ -682,13 +682,13 @@ export function renderChat(container) {
   const imagePreviewWrap = h('div', { className: 'chat-image-previews' });
   const filePreviewWrap = h('div', { className: 'chat-file-previews' });
 
-  const uploadImgBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Прикрепить изображение' }, ['🖼️']);
-  const uploadFileBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Прикрепить файл (как текст)' }, ['📎']);
+  const uploadImgBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Attach image' }, ['🖼️']);
+  const uploadFileBtn = h('button', { className: 'btn btn-ghost btn-sm', title: 'Attach file (as text)' }, ['📎']);
 
   function updateImageUploadVisibility(modelId) {
     const ok = modelSupportsVision(modelId);
     uploadImgBtn.disabled = !ok;
-    uploadImgBtn.title = ok ? 'Прикрепить изображение' : 'Эта модель не отмечена как vision (изображения отключены)';
+    uploadImgBtn.title = ok ? 'Attach image' : 'This model is not marked as vision (images disabled)';
     if (!ok) {
       pendingImages = [];
       imagePreviewWrap.innerHTML = '';
@@ -711,7 +711,7 @@ export function renderChat(container) {
         pendingImages.push({ file, dataUrl });
         const thumb = h('div', { className: 'chat-image-thumb' }, [
           h('img', { src: dataUrl }),
-          h('button', { className: 'chat-image-thumb-remove', title: 'Удалить' }, ['×']),
+          h('button', { className: 'chat-image-thumb-remove', title: 'Remove' }, ['×']),
         ]);
         thumb.querySelector('button').addEventListener('click', () => {
           pendingImages = pendingImages.filter(p => p.dataUrl !== dataUrl);
@@ -720,7 +720,7 @@ export function renderChat(container) {
         });
         imagePreviewWrap.appendChild(thumb);
       } catch {
-        toastError('Ошибка чтения изображения');
+        toastError('Error reading image');
       }
     }
     imageInput.value = '';
@@ -741,7 +741,7 @@ export function renderChat(container) {
         const chip = h('div', { className: 'chat-file-chip' }, [
           h('span', { className: 'chat-file-chip-name' }, [file.name]),
           h('span', { className: 'chat-file-chip-meta' }, [`${text.length} chars`]),
-          h('button', { className: 'chat-file-chip-remove', title: 'Удалить' }, ['×']),
+          h('button', { className: 'chat-file-chip-remove', title: 'Remove' }, ['×']),
         ]);
         chip.querySelector('button').addEventListener('click', () => {
           pendingFiles = pendingFiles.filter(f => f.name !== file.name || f.text !== text);
@@ -787,7 +787,7 @@ export function renderChat(container) {
 
     const model = modelSelector.getValue();
     if (!model) { toastError('Выберите модель'); return; }
-    if (!apiKey) { toastError('Нет доступного API ключа'); return; }
+    if (!apiKey) { toastError('No API key available'); return; }
 
     // Inline attached files as text blocks
     let filesText = '';
