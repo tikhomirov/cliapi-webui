@@ -1,19 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    <!-- Primary gradient: deep indigo to vivid cyan -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
     </linearGradient>
-    <linearGradient id="inner" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" />
+    <linearGradient id="flow1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
     </linearGradient>
+    <linearGradient id="flow2" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="flow3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
   </defs>
-  <rect width="120" height="120" rx="28" fill="url(#grad)"/>
-  <path d="M60 25L35 40v20l25 15 25-15V40L60 25z" fill="rgba(255,255,255,0.15)"/>
-  <path d="M35 60v20l25 15 25-15V60L60 75 35 60z" fill="rgba(255,255,255,0.25)"/>
-  <path d="M60 25L35 40l25 15 25-15L60 25z" fill="rgba(255,255,255,0.35)"/>
-  <circle cx="60" cy="55" r="12" fill="url(#inner)"/>
-  <path d="M55 55l5-5 5 5-5 5-5-5z" fill="white"/>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#818cf8" stroke-width="0.5">
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+  </g>
+
+  <!-- Glow behind core -->
+  <circle cx="256" cy="240" r="160" fill="url(#glow)"/>
+
+  <!-- Flow paths: data streaming into the central hub -->
+  <!-- Top-left flow (OpenAI) -->
+  <path d="M80 96 Q168 168 224 224" stroke="url(#flow1)" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M80 96 Q168 168 224 224" stroke="url(#flow1)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.15" filter="url(#blur)"/>
+
+  <!-- Top-right flow (Claude) -->
+  <path d="M432 96 Q344 168 288 224" stroke="url(#flow2)" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2.3s" repeatCount="indefinite"/>
+  </path>
+  <path d="M432 96 Q344 168 288 224" stroke="url(#flow2)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.15" filter="url(#blur)"/>
+
+  <!-- Bottom-left flow (Gemini) -->
+  <path d="M80 400 Q168 320 224 272" stroke="url(#flow3)" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="1.8s" repeatCount="indefinite"/>
+  </path>
+  <path d="M80 400 Q168 320 224 272" stroke="url(#flow3)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.15" filter="url(#blur)"/>
+
+  <!-- Bottom-right flow (Codex) -->
+  <path d="M432 400 Q344 320 288 272" stroke="url(#flow1)" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.7">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2.5s" repeatCount="indefinite"/>
+  </path>
+  <path d="M432 400 Q344 320 288 272" stroke="url(#flow1)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.12" filter="url(#blur)"/>
+
+  <!-- Input nodes (AI providers) -->
+  <!-- OpenAI node -->
+  <circle cx="80" cy="96" r="18" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
+  <text x="80" y="101" text-anchor="middle" fill="#818cf8" font-family="system-ui" font-size="14" font-weight="700">O</text>
+
+  <!-- Claude node -->
+  <circle cx="432" cy="96" r="18" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+  <text x="432" y="101" text-anchor="middle" fill="#c084fc" font-family="system-ui" font-size="14" font-weight="700">C</text>
+
+  <!-- Gemini node -->
+  <circle cx="80" cy="400" r="18" fill="#0f172a" stroke="#ec4899" stroke-width="2"/>
+  <text x="80" y="405" text-anchor="middle" fill="#f472b6" font-family="system-ui" font-size="14" font-weight="700">G</text>
+
+  <!-- Codex node -->
+  <circle cx="432" cy="400" r="18" fill="#0f172a" stroke="#22d3ee" stroke-width="2"/>
+  <text x="432" y="405" text-anchor="middle" fill="#67e8f9" font-family="system-ui" font-size="14" font-weight="700">X</text>
+
+  <!-- Central hub (proxy core) -->
+  <!-- Outer ring -->
+  <circle cx="256" cy="240" r="52" fill="none" stroke="#6366f1" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="256" cy="240" r="52" fill="none" stroke="#818cf8" stroke-width="1" opacity="0.15" stroke-dasharray="4 6">
+    <animateTransform attributeName="transform" type="rotate" from="0 256 240" to="360 256 240" dur="20s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Core hexagon -->
+  <polygon points="256,200 291,220 291,260 256,280 221,260 221,220" fill="url(#core)" stroke="#a5b4fc" stroke-width="1.5"/>
+
+  <!-- Inner diamond (the routing symbol) -->
+  <polygon points="256,214 274,240 256,266 238,240" fill="#0f172a" opacity="0.6"/>
+  <polygon points="256,222 267,240 256,258 245,240" fill="#818cf8" opacity="0.4"/>
+
+  <!-- Center dot -->
+  <circle cx="256" cy="240" r="5" fill="#e0e7ff"/>
+  <circle cx="256" cy="240" r="3" fill="#c7d2fe"/>
+
+  <!-- Output arrow (proxy response) -->
+  <path d="M256 292 L256 340 L240 324 M256 340 L272 324" stroke="#22d3ee" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+
+  <!-- Output label -->
+  <text x="256" y="372" text-anchor="middle" fill="#67e8f9" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="16" font-weight="600" letter-spacing="3" opacity="0.85">API</text>
+
+  <!-- Brand text -->
+  <text x="256" y="448" text-anchor="middle" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="700" letter-spacing="1">CLI Proxy</text>
+  <text x="256" y="474" text-anchor="middle" fill="#64748b" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="400" letter-spacing="4">MANAGEMENT</text>
 </svg>
