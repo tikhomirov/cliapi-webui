@@ -1,7 +1,7 @@
 # CLI API + WebUI
 
 <p align="center">
-  <img src="assets/logo.svg" alt="CLI API WebUI" width="120">
+  <img src="assets/logo.svg" alt="CLI Proxy API" width="120">
 </p>
 
 <p align="center">

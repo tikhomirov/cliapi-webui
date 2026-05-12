@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 170" fill="none">
+  <defs>
+    <linearGradient id="hub-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="flow-a" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="flow-b" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="flow-c" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="flow-d" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="out-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ ICON (left) ============ -->
+
+  <!-- Input flow lines -->
+  <path d="M18 22 Q42 50 62 70" stroke="url(#flow-a)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M108 22 Q84 50 68 70" stroke="url(#flow-b)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M18 130 Q42 102 62 84" stroke="url(#flow-c)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M108 130 Q84 102 68 84" stroke="url(#flow-d)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+
+  <!-- Provider nodes (input) -->
+  <circle cx="16" cy="20" r="10" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="16" y="24" text-anchor="middle" fill="#22d3ee" font-family="'SF Pro Display',system-ui,sans-serif" font-size="10" font-weight="700">O</text>
+
+  <circle cx="110" cy="20" r="10" fill="#0f172a" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="110" y="24" text-anchor="middle" fill="#f472b6" font-family="'SF Pro Display',system-ui,sans-serif" font-size="10" font-weight="700">C</text>
+
+  <circle cx="16" cy="132" r="10" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+  <text x="16" y="136" text-anchor="middle" fill="#34d399" font-family="'SF Pro Display',system-ui,sans-serif" font-size="10" font-weight="700">G</text>
+
+  <circle cx="110" cy="132" r="10" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="110" y="136" text-anchor="middle" fill="#fbbf24" font-family="'SF Pro Display',system-ui,sans-serif" font-size="10" font-weight="700">X</text>
+
+  <!-- Central hub — hexagon -->
+  <polygon points="63,58 89,73 89,97 63,112 37,97 37,73" fill="url(#hub-grad)" filter="url(#glow)"/>
+
+  <!-- Inner diamond — routing symbol -->
+  <polygon points="63,68 75,85 63,102 51,85" fill="#0f172a" opacity="0.5"/>
+  <polygon points="63,74 70,85 63,96 56,85" fill="#818cf8" opacity="0.7"/>
+
+  <!-- Core dot -->
+  <circle cx="63" cy="85" r="4" fill="#e0e7ff"/>
+
+  <!-- Outer ring -->
+  <circle cx="63" cy="85" r="30" fill="none" stroke="#818cf8" stroke-width="1" opacity="0.25" stroke-dasharray="3 5">
+    <animateTransform attributeName="transform" type="rotate" from="0 63 85" to="360 63 85" dur="30s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Output arrow -->
+  <path d="M63 112 L63 138" stroke="url(#out-grad)" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M54 130 L63 142 L72 130" stroke="url(#out-grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- ============ TEXT (right) ============ -->
+
+  <!-- CLI Proxy -->
+  <text x="136" y="96" fill="#f1f5f9" font-family="'Inter','SF Pro Display',system-ui,sans-serif" font-size="64" font-weight="800" letter-spacing="-2">
+    CLI<tspan fill="url(#hub-grad)" font-weight="800"> Proxy</tspan>
+  </text>
+
+  <!-- Management Panel -->
+  <text x="138" y="126" fill="#64748b" font-family="'Inter','SF Pro Display',system-ui,sans-serif" font-size="16" font-weight="500" letter-spacing="6">
+    MANAGEMENT PANEL
+  </text>
+
+  <!-- Decorative line under text -->
+  <line x1="138" y1="138" x2="480" y2="138" stroke="url(#hub-grad)" stroke-width="1" opacity="0.2"/>
+</svg>
