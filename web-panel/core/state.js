@@ -9,9 +9,6 @@ const listeners = new Map();
 /** @type {Map<string, any>} */
 const computedCache = new Map();
 
-/** @type {Set<string>} */
-const computedDeps = new Set();
-
 const state = {
   // Navigation
   activeView: 'dashboard',
@@ -19,53 +16,31 @@ const state = {
 
   // Data
   config: null,
-  providers: [],
-  models: [],
   usage: null,
   logs: null,
-  auth: null,
-  settings: null,
-  serverInfo: null,
   keys: [],
-  channels: [],
 
   // UI state
   isLoading: false,
   lastError: null,
   unsavedChanges: false,
-  searchQuery: '',
-  toasts: [],
 
   // Provider sub-tabs
   providerTab: 'connections',
-  providerEditId: null,
-  providerAddOpen: false,
 
   // Models
   modelFilter: 'all',
   modelSearch: '',
-  modelSort: 'name',
-  selectedModels: new Set(),
-  benchmarkOpen: false,
-  benchmarkResults: [],
 
   // Traffic
   trafficTab: 'requests',
-  trafficFilter: '',
-  trafficPage: 1,
-  trafficPageSize: 50,
-
-  // Keys
-  keysTab: 'keys',
 
   // Config
-  configEditorMode: 'form', // 'form' | 'json'
+  configEditorMode: 'form',
   configJson: '',
 
   // Enrichment
   enrichedModels: [],
-  openRouterModels: null,
-  modelDefinitions: new Map(),
 };
 
 /**

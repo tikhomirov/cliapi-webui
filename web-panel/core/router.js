@@ -2,13 +2,23 @@
  * @fileoverview Simple hash-based router with view lifecycle hooks.
  */
 
-import { set, get } from './state.js';
+import { set } from './state.js';
+import { h, icon } from './utils.js';
 
 /** @type {Map<string, Function>} */
 const routes = new Map();
 
 /** @type {Function|null} */
 let currentCleanup = null;
+
+function renderEmptyState(container, iconName, title, desc) {
+  container.innerHTML = '';
+  container.appendChild(h('div', { className: 'empty-state' }, [
+    h('div', { className: 'empty-state-icon' }, [icon(iconName, { size: 44 })]),
+    h('div', { className: 'empty-state-title' }, [title]),
+    h('div', { className: 'empty-state-desc' }, [desc]),
+  ]));
+}
 
 /**
  * Register a view renderer for a route.
@@ -74,18 +84,10 @@ export function init(container) {
         if (typeof cleanup === 'function') currentCleanup = cleanup;
       } catch (e) {
         console.error('View render error:', e);
-        container.innerHTML = `<div class="empty-state">
-          <div class="empty-state-icon">⚠️</div>
-          <div class="empty-state-title">Loading Error</div>
-          <div class="empty-state-desc">${e.message}</div>
-        </div>`;
+        renderEmptyState(container, 'error', 'Loading Error', e.message);
       }
     } else {
-      container.innerHTML = `<div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <div class="empty-state-title">Page Not Found</div>
-        <div class="empty-state-desc">Redirecting to Dashboard...</div>
-      </div>`;
+      renderEmptyState(container, 'search', 'Page Not Found', 'Redirecting to Dashboard...');
       setTimeout(() => navigate('dashboard'), 1500);
     }
   }

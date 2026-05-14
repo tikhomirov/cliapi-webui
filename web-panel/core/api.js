@@ -110,6 +110,11 @@ export async function fetchProvidersCheck() {
   };
 }
 
+export async function syncProviderModels() {
+  const data = await post('/providers/sync-models', {}, { timeout: 120000 });
+  return data;
+}
+
 /* ── OAuth helpers ── */
 
 const OAUTH_PROVIDERS = [

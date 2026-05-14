@@ -675,6 +675,7 @@ func (s *Server) registerManagementRoutes() {
 		mgmt.DELETE("/oauth-model-alias", s.mgmt.DeleteOAuthModelAlias)
 
 		mgmt.GET("/providers/check", s.mgmt.CheckProviders)
+		mgmt.POST("/providers/sync-models", s.mgmt.SyncProviderModels)
 		mgmt.GET("/models/stale", s.mgmt.GetStaleModels)
 		mgmt.POST("/models/cleanup", s.mgmt.RemoveStaleModels)
 		mgmt.GET("/auth-files", s.mgmt.ListAuthFiles)

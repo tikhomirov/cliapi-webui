@@ -2,7 +2,7 @@
  * @fileoverview Modal component with overlay, animations, and keyboard support.
  */
 
-import { h } from '../core/utils.js';
+import { h, icon } from '../core/utils.js';
 
 let currentCloseHandler = null;
 
@@ -38,7 +38,12 @@ export function showModal({ title, children = [], footer, onClose, size = 'md' }
   const header = title
     ? h('div', { className: 'modal-header' }, [
         h('div', { className: 'modal-title' }, [title]),
-        h('button', { className: 'modal-close', onClick: closeModal }, ['✕']),
+        h('button', { 
+          className: 'modal-close', 
+          onClick: closeModal, 
+          title: 'Close',
+          style: { color: 'var(--text-primary)', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: 'var(--radius-sm)' },
+        }, [icon('close', { size: 24, strokeWidth: 2.5 })]),
       ])
     : null;
 

@@ -150,11 +150,6 @@ function findOpenRouterModel(localId, meta, orMap) {
   // 4. Fuzzy: try stripping known local prefixes and re-trying
   //    e.g. "nvidia-gemma-2-2b-it" → try "google/gemma-2-2b-it"
   //    e.g. "ds-v4-flash" → try "deepseek/deepseek-v4-flash"
-  const localPrefixes = [
-    { pattern: /^ds-/, replace: 'deepseek/deepseek-' },
-    { pattern: /^nvidia-/, replace: null }, // handled by trying multiple providers below
-  ];
-
   if (realId.startsWith('ds-')) {
     const candidate = 'deepseek/deepseek-' + realId.slice(3);
     if (orMap.has(candidate)) return orMap.get(candidate);

@@ -52,10 +52,10 @@ Open http://localhost:3001 — the WebUI is ready.
 |---------|-------------|
 | 📊 **Dashboard** | Real-time usage statistics, request metrics, provider health |
 | 🔑 **API Keys** | Manage client keys, view usage quotas, rotate credentials |
-| 🌐 **Providers** | Configure OpenAI, Claude, Gemini, Codex, custom endpoints |
+| 🌐 **Providers** | Unified interface for all provider types (OpenAI-compatible, OAuth, API keys) with pre-configured catalog |
 | 🤖 **Models** | Browse available models, test connections, manage aliases |
 | 💬 **Chat** | Built-in chat interface for testing models |
-| ⚙️ **Config** | Live configuration editing with hot-reload |
+| ⚙️ **Settings** | General settings, provider management, configuration options |
 | 📈 **Traffic** | Request logs and traffic analysis |
 
 ### 🔐 OAuth & Authentication
@@ -157,7 +157,11 @@ go build -o cli-proxy-api ./cmd/server
 go run ./cmd/server --config config.yaml
 
 # Build WebUI only (static files)
-cd web-panel && docker build -t cli-proxy-panel .
+docker build -f web-panel/Dockerfile -t cli-proxy-panel web-panel
+
+# Dockerfiles:
+# - ./Dockerfile          → CLIProxyAPI server
+# - ./web-panel/Dockerfile → Web panel
 ```
 
 ## 🐳 Docker Compose Stacks

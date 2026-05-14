@@ -2,7 +2,7 @@
  * @fileoverview Toast notification system with queue, types, and undo.
  */
 
-import { h } from '../core/utils.js';
+import { h, icon } from '../core/utils.js';
 
 const MAX_TOASTS = 5;
 const DEFAULT_DURATION = 5000;
@@ -20,51 +20,51 @@ const queue = [];
  * @param {{label: string, fn: Function}} [opts.undo]
  */
 export function showToast({ message, title, type = 'info', duration = DEFAULT_DURATION, undo }) {
-  const container = document.getElementById('toast-container');
-  if (!container) return;
+ const container = document.getElementById('toast-container');
+ if (!container) return;
 
-  // Remove oldest if queue is full
-  while (queue.length >= MAX_TOASTS) {
-    removeToast(queue[0].id);
-  }
+ // Remove oldest if queue is full
+ while (queue.length >= MAX_TOASTS) {
+ removeToast(queue[0].id);
+ }
 
-  const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+ const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 
-  const icons = {
-    ok: '✅',
-    warn: '⚠️',
-    error: '❌',
-    info: 'ℹ️',
-  };
+ const icons = {
+ ok: icon('check', { size: 18 }),
+ warn: icon('warning', { size: 18 }),
+ error: icon('error', { size: 18 }),
+ info: icon('info', { size: 18 }),
+ };
 
-  const el = h('div', { className: 'toast', id }, [
-    h('span', { className: 'toast-icon' }, [icons[type] || icons.info]),
-    h('div', { className: 'toast-content' }, [
-      title ? h('div', { className: 'toast-title' }, [title]) : null,
-      h('div', { className: 'toast-message' }, [message]),
-    ]),
-    undo
-      ? h('div', { className: 'toast-actions' }, [
-          h('button', {
-            className: 'btn btn-sm btn-ghost',
-            onClick: () => {
-              try { undo.fn(); } catch (e) { console.error(e); }
-              removeToast(id);
-            },
-          }, [undo.label || 'Undo']),
-        ])
-      : null,
-    h('button', {
-      className: 'btn btn-sm btn-ghost',
-      style: { padding: '4px', minWidth: 'auto' },
-      onClick: () => removeToast(id),
-    }, ['✕']),
-  ]);
+ const el = h('div', { className: 'toast', id, dataset: { type }, }, [
+ h('span', { className: 'toast-icon' }, [icons[type] || icons.info]),
+ h('div', { className: 'toast-content' }, [
+ title ? h('div', { className: 'toast-title' }, [title]) : null,
+ h('div', { className: 'toast-message' }, [message]),
+ ]),
+ undo
+ ? h('div', { className: 'toast-actions' }, [
+ h('button', {
+ className: 'btn btn-sm btn-ghost',
+ onClick: () => {
+ try { undo.fn(); } catch (e) { console.error(e); }
+ removeToast(id);
+ },
+ }, [undo.label || 'Undo']),
+ ])
+ : null,
+ h('button', {
+ className: 'toast-close',
+ onClick: () => removeToast(id),
+ title: 'Dismiss',
+ }, [icon('close', { size: 18 })]),
+ ]);
 
-  container.appendChild(el);
+ container.appendChild(el);
 
-  const timer = setTimeout(() => removeToast(id), duration);
-  queue.push({ id, el, timer });
+ const timer = setTimeout(() => removeToast(id), duration);
+ queue.push({ id, el, timer });
 }
 
 /**
@@ -72,36 +72,36 @@ export function showToast({ message, title, type = 'info', duration = DEFAULT_DU
  * @param {string} id
  */
 export function removeToast(id) {
-  const idx = queue.findIndex(t => t.id === id);
-  if (idx < 0) return;
+ const idx = queue.findIndex(t => t.id === id);
+ if (idx < 0) return;
 
-  const { el, timer } = queue[idx];
-  clearTimeout(timer);
-  el.classList.add('removing');
+ const { el, timer } = queue[idx];
+ clearTimeout(timer);
+ el.classList.add('removing');
 
-  setTimeout(() => {
-    el.remove();
-    queue.splice(idx, 1);
-  }, 300);
+ setTimeout(() => {
+ el.remove();
+ queue.splice(idx, 1);
+ }, 300);
 }
 
 /**
  * Convenience: show success toast.
  */
 export function toastOk(message, opts = {}) {
-  showToast({ message, type: 'ok', ...opts });
+ showToast({ message, type: 'ok', ...opts });
 }
 
 /**
  * Convenience: show error toast.
  */
 export function toastError(message, opts = {}) {
-  showToast({ message, type: 'error', ...opts });
+ showToast({ message, type: 'error', ...opts });
 }
 
 /**
  * Convenience: show undo toast.
  */
 export function toastUndo(message, undoFn, opts = {}) {
-  showToast({ message, type: 'ok', undo: { label: 'Undo', fn: undoFn }, ...opts });
+ showToast({ message, type: 'ok', undo: { label: 'Undo', fn: undoFn }, ...opts });
 }

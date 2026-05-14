@@ -1,115 +1,93 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLI Proxy API — Management Panel</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>CLI Proxy API — Panel</title>
+  <link rel="stylesheet" href="styles.css?v=20260513">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="app">
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="logo">
-          <div class="logo-icon">
-            <svg viewBox="0 0 512 512" width="36" height="36" fill="none">
-              <rect width="512" height="512" rx="108" fill="#0f172a"/>
-              <polygon points="256,192 312,224 312,272 256,304 200,272 200,224" fill="#7c3aed"/>
-              <polygon points="256,220 269,248 256,276 243,248" fill="#818cf8" opacity="0.7"/>
-              <circle cx="256" cy="248" r="7" fill="#e0e7ff"/>
-              <path d="M68 68 Q140 160 220 232" stroke="#22d3ee" stroke-width="3" fill="none" opacity="0.6"/>
-              <path d="M444 68 Q372 160 292 232" stroke="#f472b6" stroke-width="3" fill="none" opacity="0.6"/>
-              <path d="M68 400 Q140 320 220 268" stroke="#34d399" stroke-width="3" fill="none" opacity="0.6"/>
-              <path d="M444 400 Q372 320 292 268" stroke="#fbbf24" stroke-width="3" fill="none" opacity="0.6"/>
-              <path d="M256 304 L256 356" stroke="#22d3ee" stroke-width="4" fill="none"/>
-              <path d="M240 340 L256 368 L272 340" stroke="#22d3ee" stroke-width="4" fill="none"/>
-            </svg>
-          </div>
-          <div class="logo-text">
-            <span class="logo-title">CLI Proxy</span>
-            <span class="logo-subtitle">Management</span>
-          </div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
+        <span class="sidebar-brand-text">CLI Proxy</span>
       </div>
+
       <nav class="sidebar-nav" id="sidebar-nav">
-        <a href="#dashboard" class="nav-item active" data-view="dashboard">
-          <span class="nav-icon">📊</span>
+        <div class="nav-item active" data-view="dashboard">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
           <span class="nav-label">Dashboard</span>
-        </a>
-        <a href="#providers" class="nav-item" data-view="providers">
-          <span class="nav-icon">🔌</span>
+        </div>
+        <div class="nav-item" data-view="providers">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="18" r="1"/></svg></span>
           <span class="nav-label">Providers</span>
-        </a>
-        <a href="#models" class="nav-item" data-view="models">
-          <span class="nav-icon">🧩</span>
+        </div>
+        <div class="nav-item" data-view="models">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
           <span class="nav-label">Models</span>
-        </a>
-        <a href="#traffic" class="nav-item" data-view="traffic">
-          <span class="nav-icon">📈</span>
+        </div>
+        <div class="nav-item" data-view="traffic">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
           <span class="nav-label">Traffic</span>
-        </a>
-        <a href="#keys" class="nav-item" data-view="keys">
-          <span class="nav-icon">🔑</span>
-          <span class="nav-label">Keys & Auth</span>
-        </a>
-        <a href="#chat" class="nav-item" data-view="chat">
-          <span class="nav-icon">💬</span>
+        </div>
+        <div class="nav-item" data-view="keys">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span>
+          <span class="nav-label">Keys</span>
+        </div>
+        <div class="nav-item" data-view="chat">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
           <span class="nav-label">Chat</span>
-        </a>
-        <a href="#settings" class="nav-item" data-view="settings">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">Settings</span>
-        </a>
-        <a href="#config" class="nav-item" data-view="config">
-          <span class="nav-icon">📝</span>
+        </div>
+        <div class="nav-item" data-view="config">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
           <span class="nav-label">Config</span>
-        </a>
+        </div>
       </nav>
+
       <div class="sidebar-footer">
         <div class="server-status" id="server-status">
           <span class="status-dot"></span>
-          <span class="status-text">Connecting...</span>
+          <span class="status-text">...</span>
         </div>
-        <div class="version" id="version">v2.0.0</div>
+        <div class="version" id="version">v2.0</div>
       </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main" id="main">
       <header class="topbar">
         <div class="topbar-left">
-          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
           <h1 class="page-title" id="page-title">Dashboard</h1>
         </div>
-        <div class="topbar-right">
-          <button class="btn btn-ghost" id="global-search-btn" title="Search (Ctrl+K)">
-            <span>🔍</span>
-            <kbd>Ctrl+K</kbd>
+        <div class="topbar-actions">
+          <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+            <svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
           </button>
-          <button class="btn btn-ghost" id="refresh-btn" title="Refresh (Ctrl+R)">
-            <span>🔄</span>
-          </button>
-          <button class="btn btn-primary" id="save-btn">
-            <span>💾</span>
-            <span>Save Config</span>
+          <button class="search-trigger" id="global-search-btn" title="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="search-trigger-kbd">Ctrl+K</span>
           </button>
         </div>
       </header>
 
-      <div class="content" id="content">
-        <!-- Views rendered here -->
-      </div>
+      <div class="content" id="content"></div>
     </main>
   </div>
 
-  <!-- Global Search Modal -->
   <div class="modal-overlay" id="search-modal" hidden>
     <div class="modal modal-search">
       <div class="search-input-wrap">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
         <input type="text" class="search-input" id="global-search-input" placeholder="Search providers, models, settings..." autocomplete="off">
         <kbd class="search-shortcut">Esc</kbd>
       </div>
@@ -117,15 +95,219 @@
     </div>
   </div>
 
-  <!-- Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Modal Container -->
   <div class="modal-overlay" id="modal-overlay" hidden>
     <div class="modal" id="modal-root"></div>
   </div>
 
-  <!-- Scripts -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('cli-proxy-theme');
+      if (stored) document.documentElement.setAttribute('data-theme', stored);
+      else if (window.matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.setAttribute('data-theme', 'light');
+
+      function updateIcons() {
+        var t = document.documentElement.getAttribute('data-theme');
+        var d = document.querySelector('.theme-icon-dark');
+        var l = document.querySelector('.theme-icon-light');
+        if (d) d.style.display = t === 'dark' ? '' : 'none';
+        if (l) l.style.display = t === 'light' ? '' : 'none';
+      }
+      document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', updateIcons) : updateIcons();
+    })();
+  </script>
+
+  <template id="tpl-dashboard-view">
+    <div class="flex flex-col gap-4" x-data="dashboardView()" x-init="init()">
+      <div class="card-grid">
+        <div class="stat-card"><div class="flex items-center justify-between"><span class="stat-label">Providers</span></div><div class="stat-value" x-text="stats.providers"></div></div>
+        <div class="stat-card"><div class="flex items-center justify-between"><span class="stat-label">Models</span></div><div class="stat-value" x-text="stats.models"></div></div>
+        <div class="stat-card"><div class="flex items-center justify-between"><span class="stat-label">Total Requests</span></div><div class="stat-value" x-text="stats.totalRequests"></div></div>
+        <div class="stat-card"><div class="flex items-center justify-between"><span class="stat-label">Total Tokens</span></div><div class="stat-value" x-text="stats.totalTokens"></div></div>
+      </div>
+
+      <div class="flex gap-4" style="flex-wrap: wrap;">
+        <div style="flex: 2; min-width: 400px;">
+          <div class="card">
+            <div class="card-header"><div><div class="card-title">Provider Health</div><div class="card-subtitle">Configured OpenAI-compatible providers</div></div></div>
+            <div class="card-body">
+              <template x-if="!providers.length"><div class="text-muted text-center" style="padding: 2rem;">No providers configured</div></template>
+              <template x-if="providers.length">
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead><tr><th>Provider</th><th>Base URL</th><th>Models</th></tr></thead>
+                    <tbody>
+                      <template x-for="p in providers" :key="p.url + p.name">
+                        <tr @click="goProviders()" style="cursor:pointer;"><td x-text="p.name"></td><td><span class="cell-mono" x-text="p.url"></span></td><td x-text="p.models"></td></tr>
+                      </template>
+                    </tbody>
+                  </table>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 1; min-width: 300px;">
+          <div class="card">
+            <div class="card-header"><div><div class="card-title">Recent Activity</div><div class="card-subtitle">Top models by usage</div></div></div>
+            <div class="card-body">
+              <template x-if="!recent.length"><div class="text-muted text-center" style="padding: 2rem;">No activity yet</div></template>
+              <template x-if="recent.length">
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead><tr><th>Model</th><th>Requests</th><th>Tokens</th></tr></thead>
+                    <tbody>
+                      <template x-for="row in recent" :key="row.model"><tr><td x-text="row.model"></td><td x-text="row.requests"></td><td x-text="row.tokens"></td></tr></template>
+                    </tbody>
+                  </table>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">Quick Actions</div></div></div>
+        <div class="card-body"><div class="flex gap-2" style="flex-wrap: wrap;"><button class="btn btn-ghost" @click="refresh()">Refresh</button><button class="btn btn-ghost" @click="goProviders()">Providers</button><button class="btn btn-ghost" @click="goModels()">Models</button><button class="btn btn-ghost" @click="goConfig()">Config</button></div></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-keys-view">
+    <div x-data="keysView()" x-init="init()">
+      <div class="flex justify-between items-center mb-4"><span class="text-muted text-sm" x-text="countLabel"></span><button class="btn btn-primary btn-sm" @click="openAddKeyModal()">Add Key</button></div>
+      <template x-if="!keys.length"><div class="empty-state"><div class="empty-state-title">No API keys</div><div class="empty-state-desc">Add keys to authenticate with the proxy</div></div></template>
+      <template x-if="keys.length">
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Key</th><th></th></tr></thead>
+            <tbody>
+              <template x-for="key in keys" :key="key">
+                <tr><td><span class="font-mono text-sm" x-text="maskKey(key)"></span></td><td><div class="flex gap-2"><button class="btn btn-sm btn-ghost" @click="copyKey(key)">Copy</button><button class="btn btn-sm btn-danger" @click="removeKey(key)">Delete</button></div></td></tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <template id="tpl-traffic-view">
+    <div x-data="trafficView()" x-init="init()" class="flex flex-col gap-4">
+      <div class="tabs"><button class="tab" :class="{ active: tab === 'requests' }" @click="setTab('requests')">Requests</button><button class="tab" :class="{ active: tab === 'logs' }" @click="setTab('logs')">Logs</button></div>
+      <template x-if="tab === 'requests'"><div><template x-if="!requests.length"><div x-html="requestsEmptyHtml"></div></template><template x-if="requests.length"><div class="flex flex-col gap-3"><div class="flex justify-between items-center text-sm text-muted" style="flex-wrap: wrap; gap: 0.75rem;"><div class="flex gap-4" style="flex-wrap: wrap;"><span x-show="requestSummary.firstTime">From: <span x-text="formatDate(requestSummary.firstTime)"></span></span><span x-show="requestSummary.lastTime">To: <span x-text="formatDate(requestSummary.lastTime)"></span></span><span>Total: <span x-text="requestSummary.total"></span></span></div><button class="btn btn-sm btn-ghost" @click="refreshRequests()">Refresh</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Time</th><th>Model</th><th>Latency</th><th>Tokens</th><th>Status</th></tr></thead><tbody><template x-for="row in requests.slice(0, 100)" :key="`${row.time}-${row.model}-${row.source}`"><tr><td><span :title="formatDate(row.time)" x-text="formatRelative(row.time)"></span></td><td x-text="row.model"></td><td x-text="formatLatency(row.latency)"></td><td x-text="row.tokens ?? '-' "></td><td><span :class="requestStatusClass(row.status)" x-text="requestStatusLabel(row.status)"></span></td></tr></template></tbody></table></div><div class="text-muted text-sm">Showing <span x-text="requestSummary.shown"></span> of <span x-text="requestSummary.total"></span> requests</div></div></template></div></template>
+      <template x-if="tab === 'logs'"><div><template x-if="!logs.length"><div x-html="logsEmptyHtml"></div></template><template x-if="logs.length"><div class="flex flex-col gap-3"><div class="table-wrap"><table class="table"><thead><tr><th>Time</th><th>Level</th><th>Message</th></tr></thead><tbody><template x-for="row in logs" :key="`${row.timestamp}-${row.message}`"><tr><td x-text="row.timestampLabel"></td><td><span class="badge" :class="row.levelClass" x-text="row.levelLabel"></span></td><td x-text="row.messageShort"></td></tr></template></tbody></table></div><div class="flex justify-between items-center mt-4"><span class="text-muted text-sm"><span x-text="logs.length"></span> entries</span><button class="btn btn-sm btn-ghost" @click="refreshLogs()">Refresh</button></div></div></template></div></template>
+    </div>
+  </template>
+
+  <template id="tpl-config-view">
+    <div x-data="configView()" x-init="init()" class="flex flex-col gap-4">
+      <div class="tabs"><button class="tab" :class="{ active: mode === 'form' }" @click="setMode('form')">Form</button><button class="tab" :class="{ active: mode === 'yaml' }" @click="setMode('yaml')">YAML</button></div>
+      <template x-if="mode === 'form'"><div class="flex flex-col gap-4"><template x-if="!config"><div class="empty-state"><div class="spinner"></div><div class="empty-state-title">Loading config...</div></div></template><template x-if="config"><div class="flex flex-col gap-4"><div class="card"><div class="card-header"><div class="card-title">General</div></div><div class="card-body flex flex-col gap-4"><div class="form-group"><label class="form-label">Proxy URL</label><input class="form-input" x-model="draft.proxyUrl"></div><div class="form-row"><div class="form-group"><label class="form-label">Request Log</label><select class="form-select" x-model="draft.requestLog"><option :value="true">Enabled</option><option :value="false">Disabled</option></select></div><div class="form-group"><label class="form-label">Logging to File</label><select class="form-select" x-model="draft.loggingToFile"><option :value="true">Enabled</option><option :value="false">Disabled</option></select></div></div><div class="form-row"><div class="form-group"><label class="form-label">Logs Max Size (MB)</label><input class="form-input" type="number" x-model="draft.logsMaxSizeMb"></div><div class="form-group"><label class="form-label">Error Logs Max Files</label><input class="form-input" type="number" x-model="draft.errorLogsMaxFiles"></div></div></div></div><div class="card"><div class="card-header"><div class="card-title">Routing</div></div><div class="card-body"><div class="form-group"><label class="form-label">Strategy</label><select class="form-select" x-model="draft.routingStrategy"><option value="round-robin">Round Robin</option><option value="fill-first">Fill First</option></select></div></div></div><div class="card"><div class="card-header"><div class="card-title">API Keys</div></div><div class="card-body"><div class="form-group"><label class="form-label">Keys (JSON array)</label><textarea class="form-textarea" rows="6" x-model="draft.apiKeysJson"></textarea></div></div></div><div class="flex justify-end gap-2"><button class="btn btn-ghost" @click="loadConfig(true)" :disabled="isBusy">Reload</button><button class="btn btn-primary" @click="saveForm()" :disabled="isBusy">Save</button></div></div></template></div></template>
+      <template x-if="mode === 'yaml'"><div class="card"><div class="card-header"><div><div class="card-title">Raw config.yaml</div><div class="card-subtitle">Edit the full configuration file directly. Invalid YAML will be rejected by the server.</div></div></div><div class="card-body flex flex-col gap-4"><textarea class="form-textarea json-editor" rows="40" placeholder="Loading config.yaml..." style="font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5;" x-model="yamlText"></textarea><div class="flex justify-end gap-2"><button class="btn btn-ghost" @click="loadYaml(true)" :disabled="isBusy">Reload</button><button class="btn btn-primary" @click="saveYaml()" :disabled="isBusy">Save</button></div></div></div></template>
+    </div>
+  </template>
+
+  <template id="tpl-providers-view">
+    <div x-data="providersView()" x-init="init()" class="flex flex-col gap-4">
+      <div class="tabs"><button class="tab" :class="{ active: tab === 'connections' }" @click="setTab('connections')">Connections</button><button class="tab" :class="{ active: tab === 'check' }" @click="setTab('check')">Check</button><button class="tab" :class="{ active: tab === 'models' }" @click="setTab('models')">Models</button><button class="tab" :class="{ active: tab === 'payload' }" @click="setTab('payload')">Payload</button></div>
+      <template x-if="tab === 'connections'"><div class="flex flex-col gap-4"><div><div class="flex items-center justify-between" style="margin-bottom: 1rem; gap: 0.75rem; flex-wrap: wrap;"><div class="flex items-center gap-2"><h3 style="margin: 0; font-size: 1.1rem;">OpenAI-Compatibility Providers</h3><span class="badge badge-ghost" style="font-size: 0.75rem;" x-text="`${openaiProviders.length} connected`"></span></div><button class="btn btn-primary btn-sm" @click="openAddProviderModal('openai-compatibility')">+ Add Provider</button></div><template x-if="!openaiProviders.length"><div class="card" style="padding: 2rem; text-align: center;"><p class="text-muted">No OpenAI-compatible providers connected</p><p class="text-muted" style="font-size: 0.85rem;">Click "+ Add Provider" to add one</p></div></template><template x-if="openaiProviders.length"><div class="card-grid"><template x-for="provider in openaiProviders" :key="provider.name"><div class="card" :style="provider.disabled ? 'opacity: 0.6;' : ''"><div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.75rem;"><div><div style="font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem;"><span x-text="provider.name"></span><span x-show="provider.disabled" class="badge badge-error" style="margin-left: 0.5rem; font-size: 0.7rem;">DISABLED</span></div><div class="text-muted" style="font-size: 0.8rem; word-break: break-all;" x-text="provider.url"></div></div><div class="flex gap-1"><button class="btn btn-sm btn-ghost" @click="editOpenAICompatProvider(provider.name)">Edit</button><button class="btn btn-sm btn-ghost" style="color: var(--color-error, #ef4444);" @click="deleteProvider(provider.name)">Delete</button></div></div><div class="flex gap-4" style="font-size: 0.85rem; flex-wrap: wrap;"><span x-text="`${provider.keyCount} key${provider.keyCount === 1 ? '' : 's'}`"></span><span x-text="`${provider.modelsCount} model${provider.modelsCount === 1 ? '' : 's'}`"></span><span class="tag" x-show="provider.prefix" x-text="provider.prefix"></span></div></div></template></div></template></div><div><div class="flex items-center justify-between" style="margin-bottom: 1rem; gap: 0.75rem; flex-wrap: wrap;"><div class="flex items-center gap-2"><h3 style="margin: 0; font-size: 1.1rem;">OAuth Providers</h3><span class="badge badge-ghost" style="font-size: 0.75rem;" x-text="`${oauthProviders.length} available`"></span></div><button class="btn btn-primary btn-sm" style="background: var(--color-success, #10b981);" @click="openAddProviderModal('oauth')">+ Add OAuth Provider</button></div><div class="card-grid"><template x-for="provider in oauthProviders" :key="provider.key"><div class="card" :style="provider.connected ? '' : 'opacity: 0.7;'"><div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.75rem;"><div><div style="font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem;"><span x-text="provider.label"></span><span x-show="provider.connected" class="badge badge-ok" style="margin-left: 0.5rem; font-size: 0.7rem;">CONNECTED</span></div><div class="text-muted" style="font-size: 0.8rem;" x-text="provider.key"></div></div><button class="btn btn-sm" :class="provider.connected ? 'btn-ghost' : 'btn-primary'" @click="provider.connected ? disconnectOAuth(provider.key) : loginOAuth(provider.key)" x-text="provider.connected ? 'Disconnect' : 'Connect'"></button></div><div style="font-size: 0.85rem;"><span x-show="provider.connected" style="color: var(--color-success, #10b981);">Authenticated</span><span x-show="!provider.connected" class="text-muted">Click to connect via OAuth</span></div></div></template></div></div><template x-if="cliProviders.length"><div><div class="flex items-center gap-2" style="margin-bottom: 1rem;"><h3 style="margin: 0; font-size: 1.1rem;">CLI Providers</h3><span class="badge badge-ghost" style="font-size: 0.75rem;" x-text="`${cliProviders.length} connected`"></span></div><div class="card-grid"><template x-for="provider in cliProviders" :key="`${provider.configKey}-${provider.displayKey}`"><div class="card"><div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.75rem;"><div><div style="font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem;" x-text="provider.label"></div><div class="text-muted" style="font-size: 0.8rem;"><span x-text="provider.displayKey"></span><template x-if="provider.baseUrl"><span x-text="` · ${provider.baseUrl}`"></span></template></div></div><div class="flex gap-1"><button class="btn btn-sm btn-ghost" @click="editCLIProvider(provider.configKey, provider.raw['api-key'])">Edit</button><button class="btn btn-sm btn-ghost" style="color: var(--color-error, #ef4444);" @click="deleteCLIProvider(provider.configKey, provider.raw['api-key'], provider.label)">Delete</button></div></div><div class="flex gap-4" style="font-size: 0.85rem; flex-wrap: wrap;"><span x-text="`${provider.modelsCount} model${provider.modelsCount === 1 ? '' : 's'}`"></span><span class="tag" x-show="provider.prefix" x-text="provider.prefix"></span><span class="text-muted" x-show="provider.priority" x-text="`priority: ${provider.priority}`"></span></div></div></template></div></div></template><div><div class="flex items-center gap-2" style="margin-bottom: 1rem;"><h3 style="margin: 0; font-size: 1.1rem;">API Keys (Built-in Providers)</h3><span class="badge badge-ghost" style="font-size: 0.75rem;" x-text="`${apiKeyProviders.length} available`"></span></div><div class="card-grid"><template x-for="provider in apiKeyProviders" :key="provider.id"><div class="card" :style="provider.configured ? '' : 'opacity: 0.7;'"><div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.75rem;"><div><div style="font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem;"><span x-text="provider.name"></span><span x-show="provider.configured" class="badge badge-ok" style="margin-left: 0.5rem; font-size: 0.7rem;">KEY SET</span></div><div class="text-muted" style="font-size: 0.8rem;" x-text="provider.description"></div></div><button class="btn btn-sm" :class="provider.configured ? 'btn-ghost' : 'btn-primary'" @click="editAPIKey(provider.id)" x-text="provider.configured ? 'Edit' : 'Add'"></button></div><div style="font-size: 0.85rem;"><span x-show="provider.configured" style="color: var(--color-success, #10b981);">Key configured</span><span x-show="!provider.configured" class="text-muted">Click to add API key</span></div></div></template></div></div><div class="card" style="background: var(--bg-secondary); border: 2px dashed var(--border-light);"><h3 style="margin: 0 0 0.75rem; font-size: 1rem;">Add New Provider</h3><div style="display: flex; flex-wrap: wrap; gap: 0.75rem;"><button class="btn btn-primary" @click="openAddProviderModal('openai-compatibility')">OpenAI-Compatibility</button><button class="btn btn-primary" style="background: var(--color-success, #10b981);" @click="openAddProviderModal('oauth')">OAuth</button><button class="btn btn-primary" style="background: var(--color-warning, #f59e0b);" @click="openAddProviderModal('api-key')">API Key</button></div></div></div></template>
+      <template x-if="tab === 'check'"><div class="flex flex-col gap-4"><div><h2 style="margin: 0 0 1rem;">Provider Connection Check</h2><div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;"><button class="btn btn-primary" @click="checkProviders()">Check all providers</button><button class="btn btn-secondary" @click="syncModels()">Sync Models from APIs</button></div></div><template x-if="!providerCheckRows.length"><p class="text-muted">Click "Check all providers" to test connections</p></template><template x-if="providerCheckRows.length"><div class="flex flex-col gap-3"><p class="text-muted" x-show="providerCheckTotalModels > 0">Total models found: <span x-text="providerCheckTotalModels"></span></p><div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Base URL</th><th>Status</th><th>Models</th><th>Latency</th></tr></thead><tbody><template x-for="row in providerCheckRows" :key="row.name"><tr><td x-text="row.name"></td><td x-text="row.url"></td><td><span :class="statusClass(row.ok)" x-text="row.status"></span></td><td x-text="row.models"></td><td x-text="row.latency"></td></tr></template></tbody></table></div></div></template></div></template>
+      <template x-if="tab === 'models'"><div class="flex flex-col gap-3"><div><h2 style="margin: 0 0 1rem;">Configured Models</h2><p class="text-muted" x-show="configuredModels.length">Total: <span x-text="configuredModels.length"></span> models</p><p class="text-muted" x-show="!configuredModels.length">No models configured. Add providers with models in the Connections tab.</p></div><template x-if="configuredModels.length"><div class="table-wrap"><table class="table"><thead><tr><th>Provider</th><th>Model Name</th><th>Alias</th></tr></thead><tbody><template x-for="row in configuredModels" :key="`${row.provider}-${row.name}-${row.alias}`"><tr><td x-text="row.provider"></td><td x-text="row.name"></td><td x-text="row.alias"></td></tr></template></tbody></table></div></template></div></template>
+      <template x-if="tab === 'payload'"><div class="flex flex-col gap-3"><h2 style="margin: 0 0 1rem;">Model Parameter Overrides</h2><template x-if="!payloadOverrides.length"><p class="text-muted">No model overrides configured</p></template><template x-if="payloadOverrides.length"><div class="table-wrap"><table class="table"><thead><tr><th>Models</th><th>Parameters</th></tr></thead><tbody><template x-for="row in payloadOverrides" :key="`${row.models}-${row.params}`"><tr><td x-text="row.models"></td><td><pre class="font-mono text-sm" style="margin: 0; max-width: 500px; overflow: auto; font-size: 0.8em;" x-text="row.params"></pre></td></tr></template></tbody></table></div></template></div></template>
+    </div>
+  </template>
+
+  <template id="tpl-models-view">
+    <div x-data="modelsView()" x-init="init()" class="flex flex-col gap-4">
+      <div class="flex gap-4" style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-muted); flex-wrap: wrap;"><span>Total: <span x-text="stats.total"></span></span><span>Avail: <span x-text="stats.available"></span></span><span>Off: <span x-text="stats.off"></span></span></div>
+      <div class="tabs"><button class="tab" :class="{ active: !providerFilter }" @click="setProviderFilter(null)">All Providers</button><template x-for="provider in providerTabs" :key="provider"><button class="tab" :class="{ active: providerFilter === provider }" @click="setProviderFilter(provider)" x-text="provider"></button></template></div>
+      <div class="flex gap-2" style="flex-wrap: wrap; margin-bottom: 1rem;"><input class="form-input" style="max-width: 300px;" placeholder="Search by name, alias, provider..." :value="search" @input="setSearch($event.target.value)"><button class="btn btn-sm" :class="filter === 'all' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('all')">All</button><button class="btn btn-sm" :class="filter === 'available' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('available')">Available</button><button class="btn btn-sm" :class="filter === 'unavailable' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('unavailable')">Unavailable</button><button class="btn btn-sm" :class="filter === 'disabled' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('disabled')">Disabled</button><button class="btn btn-sm" :class="filter === 'vision' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('vision')">Vision</button><button class="btn btn-sm" :class="filter === 'reasoning' ? 'btn-primary' : 'btn-ghost'" @click="setFilter('reasoning')">Reasoning</button><button class="btn btn-sm btn-ghost" style="margin-left: auto;" @click="refreshCache()">Refresh</button><button class="btn btn-sm btn-warning" @click="openCleanupModal()">Cleanup</button></div>
+      <template x-if="loading"><div class="empty-state"><div class="spinner"></div><div class="empty-state-title">Loading models...</div></div></template>
+      <template x-if="!loading && !filteredModels.length"><div class="empty-state"><div class="empty-state-title">Models not found</div><div class="empty-state-desc">Change filters or search query</div></div></template>
+      <template x-if="!loading && filteredModels.length"><div class="flex flex-col gap-4"><template x-for="group in groupedModels" :key="group.provider"><div class="models-group"><div class="model-group-title"><span x-text="group.provider"></span><span style="color: var(--text-muted); font-weight: 400;" x-text="` (${group.availableCount}/${group.models.length} avail)`"></span></div><div class="model-grid"><template x-for="model in group.models" :key="model.id"><div class="model-card"><div class="model-card-header"><div><div class="model-card-name"><span x-text="model.id"></span><span x-show="model.isAlias && model.realId" class="model-card-alias" x-text="` → ${model.realId}`"></span></div><div class="model-card-provider" x-show="model.alias || model.payloadOverride"><span x-show="model.alias" x-text="`alias: ${model.alias}`"></span><span x-show="model.alias && model.payloadOverride"> • </span><span x-show="model.payloadOverride">Overrides</span></div></div><span :class="model.status === 'available' ? 'badge badge-ok' : 'badge badge-warn'" x-text="model.status === 'available' ? 'Available' : 'Unavailable'"></span></div><div class="model-card-desc" x-show="model.description" x-text="model.description"></div><div class="model-card-meta"><span x-text="formatContext(model.contextLength)"></span><span x-text="formatContext(model.maxCompletionTokens)"></span><span x-text="formatPrice(model)"></span><span :class="sourceClass(model)" x-text="sourceLabel(model)"></span></div><div class="model-card-tags" x-show="tags(model).length"><template x-for="tag in tags(model)" :key="tag"><span class="tag" x-text="tag"></span></template></div><div class="model-card-actions"><button class="btn btn-sm btn-ghost" @click="openDetails(model)">Details</button><button class="btn btn-sm btn-ghost" @click="openEdit(model)">Edit</button><button class="btn btn-sm" :class="isEnabled(model.id) ? 'btn-primary' : 'btn-ghost'" @click="toggleModel(model.id)" x-text="isEnabled(model.id) ? 'Disable' : 'Enable'"></button></div></div></template></div></div></template></div></template>
+    </div>
+  </template>
+
+  <template id="tpl-chat-view">
+    <div x-data="chatView()" x-init="init()" class="chat-layout">
+      <aside class="chat-sidebar">
+        <div class="chat-sidebar-header">
+          <span>History</span>
+          <button class="btn btn-ghost btn-sm" @click="startNewChat()">New chat</button>
+        </div>
+        <div class="chat-history-list">
+          <template x-if="historyEmpty"><div class="chat-history-empty">No saved chats</div></template>
+          <template x-for="chat in history" :key="chat.id"><button class="chat-history-item" :class="{ active: chat.id === chatId }" @click="loadChat(chat.id)"><div class="chat-history-title" x-text="chat.title || 'Untitled'"></div><div class="chat-history-meta"><span x-text="chat.model || '—'"></span></div></button></template>
+        </div>
+      </aside>
+
+      <div class="chat-main">
+        <div class="card">
+          <div class="card-header"><div><div class="card-title">Chat Settings</div></div></div>
+          <div class="card-body flex flex-col gap-4">
+            <div class="form-group">
+              <label class="form-label">Model</label>
+              <select class="form-select" :value="selectedModel" @change="setSelectedModel($event.target.value)">
+                <option value="">Select model</option>
+                <template x-for="model in availableModels" :key="model.id"><option :value="model.id" x-text="`${model.id} (${model.provider})`"></option></template>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">System prompt</label>
+              <textarea class="form-textarea chat-system-input" rows="3" x-model="systemPrompt" @input="savePromptChanges()"></textarea>
+              <div class="form-hint">Active prompt: <span x-text="systemPromptName"></span></div>
+            </div>
+            <div class="chat-model-summary">
+              <div class="chat-model-summary-row">
+                <div class="chat-model-summary-title"><strong x-text="selectedModel || '—'"></strong></div>
+                <div class="chat-model-summary-meta">
+                  <span x-show="modelSummary.provider" x-text="modelSummary.provider"></span>
+                  <span x-show="modelSummary.contextLength" x-text="` • ctx ${modelSummary.contextLength}`"></span>
+                  <span x-show="modelSummary.maxOutput" x-text="` • out ${modelSummary.maxOutput}`"></span>
+                  <span x-show="modelSummary.source" x-text="` • ${modelSummary.source}`"></span>
+                  <span x-text="` • ~${currentContextTokens} tokens`"></span>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2" style="flex-wrap: wrap;"><button class="btn btn-ghost btn-sm" @click="resetContext()">Reset context</button><button class="btn btn-ghost btn-sm" @click="compressContext()">Compress context</button><button class="btn btn-ghost btn-sm" @click="loadModels()">Reload models</button></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div><div class="card-title">Dialog</div></div></div>
+          <div class="card-body flex flex-col gap-4">
+            <div class="chat-messages">
+              <template x-if="!hasMessages"><div class="chat-empty-state">Select model and send a message.</div></template>
+              <template x-for="(message, index) in chatMessages" :key="`${index}-${message.role}`">
+                <div class="chat-bubble" :class="message.role === 'user' ? 'user' : 'assistant'">
+                  <div class="chat-bubble-header"><div class="chat-bubble-role" x-text="message.role"></div><div class="chat-bubble-actions"><button class="chat-copy-btn" @click="copyMessage(message.content)">⧉</button></div></div>
+                  <div class="chat-bubble-content" x-text="typeof message.content === 'string' ? message.content : contentToPlainText(message.content)"></div>
+                </div>
+              </template>
+            </div>
+
+            <div class="chat-file-previews" x-show="pendingFiles.length"><template x-for="(file, index) in pendingFiles" :key="`${file.name}-${index}`"><div class="chat-file-chip"><span class="chat-file-chip-name" x-text="file.name"></span><button class="chat-file-chip-remove" @click="removePendingFile(index)">×</button></div></template></div>
+            <div class="chat-image-previews" x-show="pendingImages.length"><template x-for="(image, index) in pendingImages" :key="`${image.name}-${index}`"><div class="chat-image-thumb"><img :src="image.dataUrl"><button class="chat-image-thumb-remove" @click="removePendingImage(index)">×</button></div></template></div>
+
+            <div class="chat-input-bar">
+              <div style="flex: 1;"><textarea class="form-textarea chat-input" rows="3" placeholder="Type a message..." x-model="draft" @keydown.enter.prevent="!$event.shiftKey && sendMessage()"></textarea></div>
+              <div class="chat-input-actions">
+                <label class="btn btn-ghost btn-sm"><input type="file" accept="image/*" multiple hidden @change="handleImages($event)">Image</label>
+                <label class="btn btn-ghost btn-sm"><input type="file" multiple hidden @change="handleTextFiles($event)">File</label>
+                <button class="btn btn-primary" :disabled="sending" @click="sendMessage()" x-text="sending ? 'Sending...' : 'Send'"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

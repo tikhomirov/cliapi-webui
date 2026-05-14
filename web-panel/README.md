@@ -35,7 +35,8 @@ For `/v1/*` OpenAI-compatible calls (models/chat), the UI uses a **client API ke
 ## Features
 
 - view/edit server config via `/v0/management/config`
-- provider management (OpenAI-compatible providers and OAuth-based providers)
+- unified provider management in one Connections view (OpenAI-compatible, OAuth, and API-key providers)
+- pre-configured provider catalog with endpoints and auth methods
 - auth files overview and OAuth flow helpers
 - models list and upstream checks
 - basic chat client
