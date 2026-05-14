@@ -136,9 +136,18 @@ export async function fetchOAuthURL(providerKey) {
   return data?.url || data?.auth_url || '';
 }
 
+export function fetchOAuthStatus(state) {
+  if (!state) return Promise.resolve({ status: 'ok' });
+  return get(`/get-auth-status?state=${encodeURIComponent(state)}`, { noCache: true });
+}
+
 export async function fetchAuthFiles() {
   const data = await get('/auth-files');
   return data?.files || [];
+}
+
+export async function deleteAuthFile(providerKey) {
+  await del('/auth-files', { body: { provider: providerKey } });
 }
 
 export function fetchConfig() {

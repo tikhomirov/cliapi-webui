@@ -3,6 +3,9 @@ version: '3.8'
 services:
   cli-proxy-api:
     image: cli-proxy-api:local
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: cli-proxy-api
     ports:
       - "127.0.0.1:8317:8317"
@@ -24,7 +27,10 @@ services:
       - cliproxyapi
 
   cli-proxy-panel:
-    image: cli-proxy-panel
+    image: cli-proxy-panel:local
+    build:
+      context: ./web-panel
+      dockerfile: Dockerfile
     container_name: cli-proxy-panel
     ports:
       - "3001:80"

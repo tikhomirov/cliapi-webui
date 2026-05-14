@@ -635,6 +635,8 @@ h3 > svg.ui-icon {
   height: var(--btn-height-sm);
   padding: 0 var(--space-3);
   font-size: var(--text-sm);
+  min-width: fit-content;
+  white-space: nowrap;
 }
 
 .btn-sm svg { width: 14px; height: 14px; }

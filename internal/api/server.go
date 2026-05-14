@@ -47,7 +47,211 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const oauthCallbackSuccessHTML = `<html><head><meta charset="utf-8"><title>Authentication successful</title><script>setTimeout(function(){window.close();},5000);</script></head><body><h1>Authentication successful!</h1><p>You can close this window.</p><p>This window will close automatically in 5 seconds.</p></body></html>`
+const oauthCallbackSuccessHTML = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OAuth connected</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1017;
+      --panel: rgba(26, 32, 48, 0.92);
+      --panel-2: rgba(18, 23, 35, 0.92);
+      --text: #e5ebf3;
+      --muted: #91a0b6;
+      --accent: #61afef;
+      --ok: #98c379;
+      --border: rgba(255, 255, 255, 0.09);
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      font: 500 15px/1.5 "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(97, 175, 239, 0.16), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(152, 195, 121, 0.12), transparent 28%),
+        linear-gradient(180deg, #0b0f15 0%, var(--bg) 100%);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: min(560px, 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(97, 175, 239, 0.08), transparent 32%, rgba(152, 195, 121, 0.06));
+      pointer-events: none;
+    }
+    .body {
+      position: relative;
+      padding: 28px;
+    }
+    .icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: rgba(152, 195, 121, 0.12);
+      border: 1px solid rgba(152, 195, 121, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 0 1px rgba(152, 195, 121, 0.08), 0 8px 24px rgba(152, 195, 121, 0.16);
+    }
+    .icon-wrapper svg {
+      width: 32px;
+      height: 32px;
+      color: var(--ok);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(152, 195, 121, 0.28);
+      color: var(--ok);
+      background: rgba(152, 195, 121, 0.08);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(152, 195, 121, 0.16);
+      flex: 0 0 auto;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      max-width: 48ch;
+    }
+    .meta {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .row strong { color: var(--text); font-weight: 600; }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+      cursor: pointer;
+    }
+    .btn.primary {
+      border-color: rgba(97, 175, 239, 0.45);
+      background: rgba(97, 175, 239, 0.12);
+      color: var(--accent);
+    }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.18); }
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @keyframes checkmark {
+      0% { stroke-dashoffset: 24; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .checkmark {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      animation: checkmark 0.4s ease-out 0.2s forwards;
+    }
+    @media (max-width: 520px) {
+      .body { padding: 22px; }
+      .row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <script>
+    (function() {
+      function closeWindow() {
+        if (window.opener && !window.opener.closed) {
+          window.close();
+          return;
+        }
+        const btn = document.getElementById('close-btn');
+        if (btn) btn.textContent = 'Close tab';
+      }
+      window.addEventListener('load', function() {
+        setTimeout(closeWindow, 1800);
+      });
+      window.closeWindow = closeWindow;
+    })();
+  </script>
+</head>
+<body>
+  <main class="card" role="status" aria-live="polite">
+    <div class="body">
+      <div class="icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline class="checkmark" points="20 6 9 17 4 12" stroke="currentColor"/>
+        </svg>
+      </div>
+      <div class="eyebrow"><span class="dot"></span> OAuth callback received</div>
+      <h1>Connection completed</h1>
+      <p>Your account is connected. You can return to the panel — the provider status will refresh automatically.</p>
+      <div class="meta">
+        <div class="row"><span>Status</span><strong>Ready</strong></div>
+        <div class="row"><span>Next step</span><strong>Panel refresh</strong></div>
+        <div class="row"><span>Authentication</span><strong>Successful</strong></div>
+      </div>
+      <div class="actions">
+        <button id="close-btn" class="btn primary" type="button" onclick="window.closeWindow()">Close window</button>
+        <span class="btn" aria-hidden="true">No reload required</span>
+      </div>
+      <div class="hint">If this window stays open, close it manually and switch back to the management panel.</div>
+    </div>
+  </main>
+</body>
+</html>`
 
 type serverOptionConfig struct {
 	extraMiddleware      []gin.HandlerFunc
